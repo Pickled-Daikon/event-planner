@@ -2,10 +2,10 @@
 import React from 'react';
 import { Form } from 'semantic-ui-react';
 import {
-    DateInput
+    DateInput,
   // DateInput,
   // TimeInput,
-  // DateTimeInput,
+   //DateTimeInput
   // DatesRangeInput
 } from 'semantic-ui-calendar-react';
 
