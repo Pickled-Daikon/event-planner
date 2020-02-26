@@ -15,7 +15,8 @@
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-scripts": "3.4.0",
-    "semantic-ui-calendar-react": "^0.15.3"
+    "semantic-ui-calendar-react": "^0.15.3",
+    "semantic-ui-react": "^0.88.2"
   },
   "scripts": {
     "start-client-dev": "react-scripts start",
