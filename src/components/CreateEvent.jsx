@@ -4,6 +4,8 @@ import {
   DateInput,
   TimeInput
 } from 'semantic-ui-calendar-react';
+import {createEvent, getAllEvents} from "../api/events";
+
 
 
 class CreateEvent extends React.Component {
@@ -11,9 +13,49 @@ class CreateEvent extends React.Component {
         super(props);
 
         this.state = {
+            name: '',
+            description: '',
             date: '',
-            time: '',
+            startTime: '',
+            endTime: '',
         };
+    }
+
+    onSubmit = () => {
+        const {name, description, date, startTime, endTime} = this.state;
+
+        const startDateObj = new Date(date);
+        const endDateObj = new Date(date);
+        console.log(date);
+
+        // do work here setting month, day, hrs, etc
+
+        console.log(startDateObj.toString());
+
+
+        startDateObj.setHours(startTime.slice(0, 2));
+        console.log(startDateObj.toString());
+
+        startDateObj.setMinutes(startTime.slice(3, 5));
+        endDateObj.setHours(endTime.slice(0, 2));
+        endDateObj.setMinutes(endTime.slice(3, 5));
+
+
+        const startDateStr = startDateObj.toString();
+        const endDateStr = endDateObj.toString();
+
+        createEvent({name, description, startDateTime: startDateStr, endDateTime: endDateStr})
+            .then((newDate) => {
+                console.log(newDate);
+                this.props.setCreateSuccess(true);
+            }).then(() => {
+                return getAllEvents();
+        }).then((events) =>{
+            console.log(events)
+        })
+            .catch((e) => {
+
+            });
     }
 
     handleChange = (event, {name, value}) => {
@@ -28,9 +70,9 @@ class CreateEvent extends React.Component {
         return (
 <>
             <Form>
-                <TextArea rows={1} placeHolder='Name of event'/>
+                <TextArea name='name' value={this.state.name} onChange={this.handleChange} rows={1} placeholder='Name of event'/>
                 <br/><br/>
-                <TextArea rows={1} placeHolder='Description'/>
+                <TextArea name='description' value={this.state.description} onChange={this.handleChange} rows={1} placeholder='Description'/>
                 <br/><br/>
                 <DateInput
                     closable={true}
@@ -43,15 +85,24 @@ class CreateEvent extends React.Component {
                 <TimeInput
                     closable={true}
 
-                    name="time"
-                    placeholder="Time"
+                    name="startTime"
+                    placeholder="Time Start"
+                    value={this.state.time}
+                    iconPosition="left"
+                    onChange={this.handleChange}
+                />
+                <TimeInput
+                    closable={true}
+
+                    name="endTime"
+                    placeholder="Time End"
                     value={this.state.time}
                     iconPosition="left"
                     onChange={this.handleChange}
                 />
             </Form>
         <br/>
-            <Button> Add event
+            <Button onClick={()=>this.onSubmit()}> Add event
             </Button>
             </>
 

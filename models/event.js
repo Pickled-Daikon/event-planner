@@ -55,6 +55,7 @@ async function getAll() {
 /**
  * Helper func to check if is date
  * @param {*} date
+ *
  * @return {boolean}
  */
 function isDate(date) {
@@ -83,13 +84,13 @@ async function create(newEventArgs) {
   } = newEventArgs;
 
   // throw errors if startDateTime, endDateTime are not Date() objects
-  if (!isDate(startDateTime)) {
-    throw eventErrors.startDateTimeIsNotDate;
-  }
-
-  if (!isDate(endDateTime)) {
-    throw eventErrors.endDateTimeIsNotDate;
-  }
+  // if (!isDate(startDateTime)) {
+  //   throw eventErrors.startDateTimeIsNotDate;
+  // }
+  //
+  // if (!isDate(endDateTime)) {
+  //   throw eventErrors.endDateTimeIsNotDate;
+  // }
 
   try {
     const event = new MongooseModel(

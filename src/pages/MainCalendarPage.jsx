@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   Grid, Icon, Button, Header,
 } from 'semantic-ui-react';
@@ -8,6 +8,10 @@ import CreateEvent from "../components/CreateEvent";
 
 
 function MainCalendarPage() {
+  const [createSuccess, setCreateSuccess] = useState(false);
+  //hooks
+
+  //new function that calls setcreatesuccess
   return (
     <>
       <Grid>
@@ -34,7 +38,7 @@ function MainCalendarPage() {
 
         <Grid.Row>
           <Grid.Column width={3}>
-            <CreateEvent>
+            <CreateEvent setCreateSuccess={setCreateSuccess}>
               <Icon name="add" />
             </CreateEvent>
           </Grid.Column>
