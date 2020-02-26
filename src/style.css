@@ -1,0 +1,23 @@
+.ui.borderless.topmenu.menu {
+    box-shadow: none;
+
+}
+
+.content {
+    margin-top: 5px;
+}
+
+
+.ui.header {
+    margin-left: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.ui.grid {
+    padding-left: 20px;
+}
+
+.ui.row.one {
+    padding-top: 70px;
+}
