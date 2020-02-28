@@ -46,9 +46,11 @@ class CreateEvent extends React.Component {
 
         createEvent({name, description, startDateTime: startDateStr, endDateTime: endDateStr})
             .then((newDate) => {
-                console.log(newDate);
-                this.props.setCreateSuccess(1);
-
+                if(newDate.hasOwnProperty('error')){
+                    this.props.setCreateSuccess(2);
+                } else {
+                    this.props.setCreateSuccess(1);
+                }
             }).then(() => {
                 return getAllEvents();
 
@@ -58,18 +60,17 @@ class CreateEvent extends React.Component {
 
         })
             .catch((e) => {
-                this.props.setCreateSuccess(2);
 
             });
     }
 
-    // handleChange = (event, {name, value}) => {
-    //     if (this.state.hasOwnProperty(name)) {
-    //         this.setState({ [name]: value });
-    //     }
-    // }
-    //promise
-    //creaeve
+    handleChange = (event, {name, value}) => {
+        if (this.state.hasOwnProperty(name)) {
+            this.setState({ [name]: value });
+        }
+    }
+    promise
+    creaeve
 
     render() {
         return (
