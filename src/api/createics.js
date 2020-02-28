@@ -30,9 +30,11 @@ ics.createEvent(example, (error, value) => {
  */
 function createICS(eventObject) {
   const { name, description, startDateTime, endDateTime } = eventObject;
+
   const start = new Date(startDateTime);
   const end = new Date(endDateTime);
   let result = '';
+
 
   const icsFile = {
     // eslint-disable-next-line max-len
@@ -43,9 +45,12 @@ function createICS(eventObject) {
   };
   ics.createEvent(icsFile, (error, value) => {
     if (error) {
+      // eslint-disable-next-line no-console
       console.log(error);
     }
     result = value;
   });
   return result;
 }
+
+export default createICS;
