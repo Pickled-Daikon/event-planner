@@ -9,7 +9,7 @@ import {
   // DatesRangeInput
 } from 'semantic-ui-calendar-react';
 
-class DateTimeForm extends React.Component {
+class Calender extends React.Component {
     constructor(props) {
         super(props);
 
@@ -25,7 +25,7 @@ class DateTimeForm extends React.Component {
         if (this.state.hasOwnProperty(name)) {
             this.setState({ [name]: value });
         }
-    }
+    };
 
     render() {
         return (
@@ -66,4 +66,4 @@ class DateTimeForm extends React.Component {
     }
 }
 
-export default DateTimeForm;
+export default Calender;

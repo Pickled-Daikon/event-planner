@@ -2,36 +2,35 @@ import React, { useState, useEffect } from 'react';
 import {
   Grid, Icon, Button, Header,
 } from 'semantic-ui-react';
-import DateTimeForm from '../components/Calendar';
-import CreateEvent from '../components/CreateEvent';
+import Calendar from '../components/Calendar';
+import CreateEvent, { CREATE_EVENT_STATUSES } from '../components/CreateEvent';
 
 
 function MainCalendarPage() {
-  const [createSuccess, setCreateSuccess] = useState(0);
+  const [createStatus, setCreateStatus] = useState(CREATE_EVENT_STATUSES.DEFAULT);
   // hooks
 
-  function addedSuccess(msg) {
-    return <h1>msg</h1>;
-  }
-
-
-  useEffect(() => {
-    switch (createSuccess) {
-      case 0:
-        console.log('intial state');
+  const setCreateStatusHandler = (status) => {
+    switch (status) {
+      case CREATE_EVENT_STATUSES.SUCCESS:
+        setCreateStatus(CREATE_EVENT_STATUSES.SUCCESS);
+        setTimeout(() => {
+          setCreateStatus(CREATE_EVENT_STATUSES.DEFAULT);
+        }, 3000);
         break;
-      case 1:
-        console.log('Succesfully added');
-        break;
-      case 2:
-        console.log('Failed to add event');
+      case CREATE_EVENT_STATUSES.ERROR:
+        setCreateStatus(CREATE_EVENT_STATUSES.ERROR);
+        setTimeout(() => {
+          setCreateStatus(CREATE_EVENT_STATUSES.DEFAULT);
+        }, 3000);
         break;
       default:
-        console.log('Error with switch statement setCreateSuccess int');
-        break;
+        setCreateStatus(CREATE_EVENT_STATUSES.DEFAULT);
     }
-  });
+  };
 
+  // eslint-disable-next-line no-console
+  console.log(`main calendar createStatus ${createStatus}`);
 
   // new function that calls setcreatesuccess
   return (
@@ -60,12 +59,12 @@ function MainCalendarPage() {
 
         <Grid.Row>
           <Grid.Column width={3}>
-            <CreateEvent setCreateSuccess={setCreateSuccess}>
+            <CreateEvent setCreateSuccess={setCreateStatusHandler}>
               <Icon name="add" />
             </CreateEvent>
           </Grid.Column>
           <Grid.Column width={9}>
-            <DateTimeForm />
+            <Calendar />
           </Grid.Column>
         </Grid.Row>
       </Grid>
