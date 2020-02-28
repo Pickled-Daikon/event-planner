@@ -61,6 +61,7 @@ async function getEvents(req, res) {
  *   body: {
  *    name: string,
  *    description: string,
+ *    location: string,
  *    startDateTime: string,
  *    endDateTime: string
 *    }
@@ -72,6 +73,7 @@ async function createEvent(req, res) {
   const missingProps = getMissingProps(req.body, [
     'name',
     'description',
+    'location',
     'startDateTime',
     'endDateTime',
   ]);
@@ -85,6 +87,7 @@ async function createEvent(req, res) {
   const {
     name,
     description,
+    location,
     startDateTime,
     endDateTime,
   } = req.body;
@@ -94,6 +97,7 @@ async function createEvent(req, res) {
     event = await eventModel.create({
       name,
       description,
+      location,
       startDateTime: new Date(startDateTime), // cast to date objects
       endDateTime: new Date(endDateTime),
     });

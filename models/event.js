@@ -27,6 +27,7 @@ const EVENT = 'Event';
 const eventSchema = new mongoose.Schema({
   name: 'string',
   description: 'string',
+  location: 'string',
   startDateTime: 'string',
   endDateTime: 'string',
 });
@@ -41,6 +42,7 @@ const MongooseModel = mongoose.model(EVENT, eventSchema);
  * name: string,
  * date: string,
  * description: string,
+ * location: string
  * __v: int
  * }]>}
  */
@@ -79,6 +81,7 @@ async function create(newEventArgs) {
   const {
     name,
     description,
+    location,
     startDateTime,
     endDateTime,
   } = newEventArgs;
@@ -97,6 +100,7 @@ async function create(newEventArgs) {
       {
         name,
         description,
+        location,
         startDateTime,
         endDateTime,
       },
