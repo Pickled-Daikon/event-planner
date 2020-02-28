@@ -5,7 +5,6 @@ import {
 import Calendar from '../components/Calendar';
 import CreateEvent, { CREATE_EVENT_STATUSES } from '../components/CreateEvent';
 
-
 function MainCalendarPage() {
   const [createStatus, setCreateStatus] = useState(CREATE_EVENT_STATUSES.DEFAULT);
   // hooks

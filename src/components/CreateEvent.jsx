@@ -19,7 +19,6 @@ class CreateEvent extends React.Component {
 
     constructor(props) {
         super(props);
-
         this.state = {
             name: '',
             description: '',
@@ -66,6 +65,7 @@ class CreateEvent extends React.Component {
         return (
           <>
             <Form>
+              <Header as='h1'>Add an Event</Header>
                 <TextArea name='name' value={this.state.name} onChange={this.handleChange} rows={1} placeholder='Name of event'/>
                 <br/><br/>
                 <TextArea name='description' value={this.state.description} onChange={this.handleChange} rows={1} placeholder='Description'/>
