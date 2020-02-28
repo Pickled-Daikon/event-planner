@@ -1,5 +1,5 @@
 import React from 'react';
-import {Grid, Header, Form, Button, TextArea} from 'semantic-ui-react';
+import {Form, Button, TextArea, Transition, Image, Header} from 'semantic-ui-react';
 import {
   DateInput,
   TimeInput
@@ -9,6 +9,12 @@ import {createEvent, getAllEvents} from "../api/events";
 
 
 class CreateEvent extends React.Component {
+
+    state = {visible: true, open: false, result: 'hello'};
+
+    toggleVisibility = () =>
+        this.setState((prevState) => ({ visible: !prevState.visible }))
+
     constructor(props) {
         super(props);
         this.state = {
@@ -45,14 +51,21 @@ class CreateEvent extends React.Component {
 
         createEvent({name, description, startDateTime: startDateStr, endDateTime: endDateStr})
             .then((newDate) => {
-                console.log(newDate);
-                this.props.setCreateSuccess(true);
+                if(newDate.hasOwnProperty('error')){
+                    this.props.setCreateSuccess(2);
+                } else {
+                    this.props.setCreateSuccess(1);
+                }
             }).then(() => {
                 return getAllEvents();
+
         }).then((events) =>{
             console.log(events)
+            this.props.setCreateSuccess(0);
+
         })
             .catch((e) => {
+                this.props.setCreateSuccess(2);
 
             });
     }
@@ -62,10 +75,10 @@ class CreateEvent extends React.Component {
             this.setState({ [name]: value });
         }
     }
-    //promise
-    //creaeve
 
     render() {
+        const { visible } = this.state
+
         return (
 <>
             <Form>
@@ -102,8 +115,11 @@ class CreateEvent extends React.Component {
                 />
             </Form>
         <br/>
-            <Button onClick={()=>this.onSubmit()}> Add event
+            <Button onClick={()=>{this.onSubmit(); this.toggleVisibility();}}> Add event
             </Button>
+    <Transition visible={!visible} animation='scale' duration={500}>
+        <Header>Event Handled</Header>
+    </Transition>
             </>
 
         );
