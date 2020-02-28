@@ -44,20 +44,29 @@ class CreateEvent extends React.Component {
           endTime,
         } = this.state;
 
-        const startDateObj = new Date(date);
-        const endDateObj = new Date(date);
+      const dateArr = date.split('-');
+      const newDate = [dateArr[1], dateArr[0], dateArr[2]].join('-');
 
+      console.log(date);
+        const startDateObj = new Date(newDate);
+        const endDateObj = new Date(newDate);
+
+        console.log(startDateObj);
         // do work here setting month, day, hrs, etc
 
         startDateObj.setHours(startTime.slice(0, 2));
-
         startDateObj.setMinutes(startTime.slice(3, 5));
+
         endDateObj.setHours(endTime.slice(0, 2));
         endDateObj.setMinutes(endTime.slice(3, 5));
 
 
         const startDateStr = startDateObj.toString();
         const endDateStr = endDateObj.toString();
+
+        console.log(this.state);
+        console.log(startDateStr);
+
 
         createEvent({
           name,
@@ -72,6 +81,8 @@ class CreateEvent extends React.Component {
             }).catch(() => {
                 this.props.setCreateSuccess(CREATE_EVENT_STATUSES.ERROR);
         })
+
+
     };
 
     handleChange = (event, {name, value}) => {
