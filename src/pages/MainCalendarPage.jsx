@@ -24,8 +24,7 @@ function MainCalendarPage() {
         console.log('Succesfully added');
         break;
       case 2:
-        return addedSuccess('Failed to add event*');
-        // console.log('Failed to add event');
+        console.log('Failed to add event');
         break;
       default:
         console.log('Error with switch statement setCreateSuccess int');
