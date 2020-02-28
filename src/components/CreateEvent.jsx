@@ -1,5 +1,7 @@
 import React from 'react';
-import {Form, Button, TextArea, Message} from 'semantic-ui-react';
+import {Form, Button, TextArea, Header} from 'semantic-ui-react';
+import createICS from "../api/createics";
+
 import {
   DateInput,
   TimeInput
@@ -47,9 +49,9 @@ class CreateEvent extends React.Component {
         const endDateStr = endDateObj.toString();
 
         createEvent({name, description, startDateTime: startDateStr, endDateTime: endDateStr})
-            .then((newDate) => {
-                console.log(newDate);
+            .then((newEvent) => {
                 this.props.setCreateSuccess(CREATE_EVENT_STATUSES.SUCCESS);
+                downloadIcsFile(newEvent);
             }).catch(() => {
                 this.props.setCreateSuccess(CREATE_EVENT_STATUSES.ERROR);
         })
@@ -83,7 +85,7 @@ class CreateEvent extends React.Component {
 
                     name="startTime"
                     placeholder="Time Start"
-                    value={this.state.startDateTime}
+                    value={this.state.startTime}
                     iconPosition="left"
                     onChange={this.handleChange}
                 />
@@ -92,7 +94,7 @@ class CreateEvent extends React.Component {
 
                     name="endTime"
                     placeholder="Time End"
-                    value={this.state.endDateTime}
+                    value={this.state.endTime}
                     iconPosition="left"
                     onChange={this.handleChange}
                 />
@@ -103,6 +105,16 @@ class CreateEvent extends React.Component {
             </>
         );
     }
+}
+
+function downloadIcsFile(eventObj) {
+  const fileContents = createICS(eventObj);
+  const element = document.createElement("a");
+  const file = new Blob([fileContents], {type: 'text/plain'});
+  element.href = URL.createObjectURL(file);
+  element.download = eventObj.name + '.ics';
+  document.body.appendChild(element); // Required for this to work in FireFox
+  element.click();
 }
 
 export default CreateEvent;
