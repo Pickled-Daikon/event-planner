@@ -1,13 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Grid, Icon, Button, Header,
+  Grid,
+  Icon,
+  Button,
+  Header,
+  Message,
 } from 'semantic-ui-react';
 import Calendar from '../components/Calendar';
 import CreateEvent, { CREATE_EVENT_STATUSES } from '../components/CreateEvent';
 
+const MESSAGES = {
+  CREATE_SUCCESS: 'Event successfully created!',
+  CREATE_ERROR: 'We\'re sorry, we are unable to create you\'re event at this time',
+};
+
 function MainCalendarPage() {
   const [createStatus, setCreateStatus] = useState(CREATE_EVENT_STATUSES.DEFAULT);
   // hooks
+
+
+  const currentMsg = createStatus === CREATE_EVENT_STATUSES.ERROR ? MESSAGES.CREATE_ERROR : MESSAGES.CREATE_SUCCESS;
 
   const setCreateStatusHandler = (status) => {
     switch (status) {
@@ -34,6 +46,12 @@ function MainCalendarPage() {
   // new function that calls setcreatesuccess
   return (
     <>
+      <Message
+        hidden={createStatus === CREATE_EVENT_STATUSES.DEFAULT}
+        error={createStatus === CREATE_EVENT_STATUSES.ERROR}
+        success={createStatus === CREATE_EVENT_STATUSES.SUCCESS}
+        content={currentMsg}
+      />
       <Grid>
         <Grid.Row>
           <Grid.Column width={3}>
