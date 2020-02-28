@@ -60,6 +60,7 @@ class CreateEvent extends React.Component {
 
         })
             .catch((e) => {
+                this.props.setCreateSuccess(2);
 
             });
     }
@@ -69,8 +70,6 @@ class CreateEvent extends React.Component {
             this.setState({ [name]: value });
         }
     }
-    promise
-    creaeve
 
     render() {
         return (
