@@ -1,5 +1,5 @@
 import React from 'react';
-import {Form, Button, TextArea} from 'semantic-ui-react';
+import {Form, Button, TextArea, Transition, Image, Header} from 'semantic-ui-react';
 import {
   DateInput,
   TimeInput
@@ -9,6 +9,12 @@ import {createEvent, getAllEvents} from "../api/events";
 
 
 class CreateEvent extends React.Component {
+
+    state = {visible: true, open: false, result: 'hello'};
+
+    toggleVisibility = () =>
+        this.setState((prevState) => ({ visible: !prevState.visible }))
+
     constructor(props) {
         super(props);
 
@@ -60,6 +66,7 @@ class CreateEvent extends React.Component {
 
         })
             .catch((e) => {
+                this.props.setCreateSuccess(2);
 
             });
     }
@@ -69,10 +76,10 @@ class CreateEvent extends React.Component {
             this.setState({ [name]: value });
         }
     }
-    promise
-    creaeve
 
     render() {
+        const { visible } = this.state
+
         return (
 <>
             <Form>
@@ -108,8 +115,11 @@ class CreateEvent extends React.Component {
                 />
             </Form>
         <br/>
-            <Button onClick={()=>this.onSubmit()}> Add event
+            <Button onClick={()=>{this.onSubmit(); this.toggleVisibility();}}> Add event
             </Button>
+    <Transition visible={!visible} animation='scale' duration={500}>
+        <Header>Event Handled</Header>
+    </Transition>
             </>
 
         );

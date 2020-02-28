@@ -10,12 +10,11 @@ function MainCalendarPage() {
   const [createSuccess, setCreateSuccess] = useState(0);
   // hooks
 
-  // function addedSuccess(props) {
-  //   return <h1>Success</h1>;
-  // }
+  function addedSuccess(msg) {
+    return <h1>msg</h1>;
+  }
 
 
-  // Doesn't change to correct state failed event
   useEffect(() => {
     switch (createSuccess) {
       case 0:
@@ -28,7 +27,7 @@ function MainCalendarPage() {
         console.log('Failed to add event');
         break;
       default:
-        console.log('Error with switch statement secreatesuccess int');
+        console.log('Error with switch statement setCreateSuccess int');
         break;
     }
   });
