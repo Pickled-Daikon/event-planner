@@ -55,7 +55,7 @@ export async function createEvent(eventObj) {
     });
 
     jsonResp = await resp.json();
-    return jsonResp;
+    return jsonResp.event;
   } catch (e) {
     throw new Error('Failed to Create event');
   }
