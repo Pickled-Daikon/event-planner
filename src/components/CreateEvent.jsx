@@ -14,6 +14,15 @@ export const CREATE_EVENT_STATUSES = {
     ERROR: 2
 };
 
+const DEFAULT_STATE = {
+  name: '',
+  description: '',
+  location: '',
+  date: '',
+  startTime: '',
+  endTime: '',
+};
+
 class CreateEvent extends React.Component {
 
     toggleVisibility = () =>
@@ -21,17 +30,19 @@ class CreateEvent extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            name: '',
-            description: '',
-            date: '',
-            startTime: '',
-            endTime: '',
-        };
+        this.state = {...DEFAULT_STATE};
     }
 
+
     onSubmit = () => {
-        const {name, description, date, startTime, endTime} = this.state;
+        const {
+          name,
+          description,
+          location,
+          date,
+          startTime,
+          endTime,
+        } = this.state;
 
         const startDateObj = new Date(date);
         const endDateObj = new Date(date);
@@ -48,7 +59,13 @@ class CreateEvent extends React.Component {
         const startDateStr = startDateObj.toString();
         const endDateStr = endDateObj.toString();
 
-        createEvent({name, description, startDateTime: startDateStr, endDateTime: endDateStr})
+        createEvent({
+          name,
+          description,
+          location,
+          startDateTime: startDateStr,
+          endDateTime: endDateStr,
+        })
             .then((newEvent) => {
                 this.props.setCreateSuccess(CREATE_EVENT_STATUSES.SUCCESS);
                 downloadIcsFile(newEvent);
@@ -72,6 +89,8 @@ class CreateEvent extends React.Component {
                 <br/><br/>
                 <TextArea name='description' value={this.state.description} onChange={this.handleChange} rows={1} placeholder='Description'/>
                 <br/><br/>
+              <TextArea name='location' value={this.state.location} onChange={this.handleChange} rows={1} placeholder='Location'/>
+              <br/><br/>
                 <DateInput
                     closable={true}
                     name="date"

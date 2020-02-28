@@ -29,7 +29,7 @@ ics.createEvent(example, (error, value) => {
  * }} eventObject
  */
 function createICS(eventObject) {
-  const { name, description, startDateTime, endDateTime } = eventObject;
+  const { name, description, location, startDateTime, endDateTime } = eventObject;
 
   const start = new Date(startDateTime);
   const end = new Date(endDateTime);
@@ -42,6 +42,7 @@ function createICS(eventObject) {
     end: [end.getFullYear(), (end.getMonth() + 1), end.getDate(), end.getHours(), end.getMinutes()],
     title: name,
     description,
+    location,
   };
   ics.createEvent(icsFile, (error, value) => {
     if (error) {
