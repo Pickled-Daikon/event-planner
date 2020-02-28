@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react';
 import {
   Grid, Icon, Button, Header,
 } from 'semantic-ui-react';
-import ComponentExample from '../components/ComponentExample';
 import DateTimeForm from "../components/Calendar";
 import CreateEvent from "../components/CreateEvent";
 
