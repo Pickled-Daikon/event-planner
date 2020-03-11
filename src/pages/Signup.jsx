@@ -3,6 +3,7 @@ import {
   Form, Container, Segment, Grid, Header,
 } from 'semantic-ui-react';
 import '../style.css';
+import { NavLink } from 'react-router-dom';
 
 function Signup() {
   const [firstName, setFirstName] = useState('');
@@ -40,6 +41,9 @@ function Signup() {
             <Header as="h2" textAlign="center">
               Register your account
             </Header>
+            {/* <Form onSubmit={handleSignup} as={NavLink} exact to="/"> */}
+            {' '}
+            {/* Uncomment to have signup redirect to login page */}
             <Form onSubmit={handleSignup}>
               <Segment stacked>
                 <Form.Input
