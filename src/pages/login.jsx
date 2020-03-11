@@ -3,8 +3,9 @@ import {
   Form, Button, Label, Header,
 } from 'semantic-ui-react';
 import '../style.css';
-import Signup from './Signup';
-
+import {
+  NavLink,
+} from 'react-router-dom';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -37,7 +38,7 @@ function Login() {
             <input onChange={handlePassChange} type="password" value={password} placeholder="*********" />
           </Form.Field>
           <Button onClick={loggingIn}>Log In</Button>
-          <Button path="/Signup"> Sign up</Button>
+          <Button as={NavLink} exact to="/Signup"> Sign up</Button>
         </Form>
       </div>
     </>

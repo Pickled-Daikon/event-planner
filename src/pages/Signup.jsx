@@ -1,10 +1,37 @@
 import React, { useState } from 'react';
 import {
-  Form, Button, Label, Message, Container, Segment, Grid, Header,
+  Form, Container, Segment, Grid, Header,
 } from 'semantic-ui-react';
 import '../style.css';
 
 function Signup() {
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
+  function handleSignup(e) {
+    console.log(firstName, lastName, email, username, password);
+  }
+
+  const firstNameChange = (e) => {
+    setFirstName(e.target.value);
+  };
+  const lastNameChange = (e) => {
+    setLastName(e.target.value);
+  };
+  const emailChange = (e) => {
+    setEmail(e.target.value);
+  };
+  const usernameChange = (e) => {
+    setUsername(e.target.value);
+  };
+  const passwordChange = (e) => {
+    setPassword(e.target.value);
+  };
+
+
   return (
     <>
       <Container>
@@ -13,47 +40,52 @@ function Signup() {
             <Header as="h2" textAlign="center">
               Register your account
             </Header>
-            <Form>
+            <Form onSubmit={handleSignup}>
               <Segment stacked>
                 <Form.Input
                   label="First name"
                   icon="user"
+                  value={firstName}
                   iconPosition="left"
-                  name="firstName"
                   type="firstName"
                   placeholder="Enter Your First Name"
+                  onChange={firstNameChange}
                 />
                 <Form.Input
                   label="Last Name"
                   icon="user"
                   iconPosition="left"
-                  name="lastName"
+                  value={lastName}
                   placeholder="Enter Your Last Name"
                   type="lastName"
+                  onChange={lastNameChange}
                 />
                 <Form.Input
                   label="Email"
                   icon="mail"
                   iconPosition="left"
-                  name="email"
+                  value={email}
                   placeholder="example@hotmail.com"
                   type="email"
+                  onChange={emailChange}
                 />
                 <Form.Input
                   label="Username"
                   icon="user"
                   iconPosition="left"
-                  name="username"
+                  value={username}
                   placeholder="Enter Your Username"
                   type="username"
+                  onChange={usernameChange}
                 />
                 <Form.Input
                   label="Password"
                   icon="lock"
                   iconPosition="left"
-                  name="password"
+                  value={password}
                   placeholder="Password"
                   type="password"
+                  onChange={passwordChange}
                 />
                 <Form.Button content="Submit" />
               </Segment>
