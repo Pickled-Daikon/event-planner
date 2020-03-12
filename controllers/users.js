@@ -12,6 +12,7 @@ const {
   ID,
   EMAIL,
   PASSWORD,
+  IS_ADMIN
 } = User;
 
 /*
@@ -38,6 +39,7 @@ async function tokenizeUser(user) {
     [ID]: user[ID],
     [EMAIL]: user[EMAIL],
     [PASSWORD]: user[PASSWORD],
+    [IS_ADMIN]: user[IS_ADMIN],
   };
 
   try {
@@ -66,7 +68,7 @@ async function createUser(req, res) {
   const {
     email,
     password,
-    admin,
+    isAdmin,
   } = req.body;
 
   if (email === '' || email === undefined) {
@@ -77,6 +79,10 @@ async function createUser(req, res) {
     return res.status(400).json({ error: ERR_MSGS.MISSING_PARAMS });
   }
 
+  if (!(isAdmin !== 'True' && isAdmin !== 'False')) {
+    return res.status(400).json({ error: ERR_MSGS.MISSING_PARAMS });
+
+  }
   // find user with same email
   try {
     const existingUser = await User.fetchUser(email);
@@ -101,7 +107,7 @@ async function createUser(req, res) {
     createdUser = await User.createUser({
       email,
       password: hashedPassword,
-      admin: Boolean(admin),
+      isAdmin: Boolean(isAdmin),
     });
   } catch (e) {
     // eslint-disable-next-line no-console
@@ -155,7 +161,6 @@ async function login(req, res) {
     return res.status(400).json({ error: ERR_MSGS.UNDEFINED });
   }
 
-  console.log(foundUser);
   try {
     const pwMatch = bcrypt.compare(password, foundUser[User.PASSWORD]);
     if (!pwMatch) {
