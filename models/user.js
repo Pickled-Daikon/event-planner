@@ -18,7 +18,7 @@ const userSchema = new mongoose.Schema({
 const MongooseModel = mongoose.model(USER, userSchema);
 
 async function createUser(userObject) {
-  const { firstName, lastName, email, password, username, admin} = userObject;
+  const { firstName, lastName, email, password, username, admin } = userObject;
   const user = new MongooseModel(
     {
       firstName,

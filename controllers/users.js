@@ -10,12 +10,25 @@ async function createUser(req, res) {
     admin,
   } = req.body;
 
-  userModel.createUser({
-    firstName,
-    lastName,
-    email,
-    password,
-    username,
-    admin,
-  })
+  let createdUser;
+
+  try {
+    createdUser = await userModel.createUser({
+      firstName,
+      lastName,
+      email,
+      password,
+      username,
+      admin: Boolean(admin),
+    });
+
+
+  } catch (e) {
+    return res.status(400).body({ user: createdUser });
+  }
 }
+
+module.exports = {
+  createUser,
+};
+
