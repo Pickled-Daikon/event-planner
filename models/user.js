@@ -21,7 +21,6 @@ const userErrors = {
   fetchUser: new Error('Failed to fetch user'),
 };
 
-
 // define mongoose model
 const userSchema = new mongoose.Schema({
   email: String,
