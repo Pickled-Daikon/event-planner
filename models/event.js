@@ -18,6 +18,26 @@ const eventErrors = {
   endDateTimeIsNotDate: new Error('endDateTime is not a Date object'),
 };
 
+const NAME = 'name';
+const ID = '_id';
+const USER_ID = 'userId';
+const DESCRIPTION = 'description';
+const LOCATION = 'location';
+const START_DATE_TIME = 'startDateTime';
+const END_DATE_TIME = 'endDateTime';
+
+
+const KEYS = {
+  NAME,
+  USER_ID,
+  ID,
+  DESCRIPTION,
+  LOCATION,
+  START_DATE_TIME,
+  END_DATE_TIME,
+};
+
+
 // mongoose model name.
 // we export this in case the document name needs to be referenced
 // by other models.
@@ -25,12 +45,14 @@ const EVENT = 'Event';
 
 
 const eventSchema = new mongoose.Schema({
-  name: 'string',
-  description: 'string',
-  location: 'string',
-  startDateTime: 'string',
-  endDateTime: 'string',
+  [NAME]: 'string',
+  [USER_ID]: 'string',
+  [DESCRIPTION]: 'string',
+  [LOCATION]: 'string',
+  [START_DATE_TIME]: 'string',
+  [END_DATE_TIME]: 'string',
 });
+
 const MongooseModel = mongoose.model(EVENT, eventSchema);
 
 
@@ -55,31 +77,21 @@ async function getAll() {
 }
 
 /**
- * Helper func to check if is date
- * @param {*} date
- *
- * @return {boolean}
- */
-function isDate(date) {
-  if (!(date instanceof Date)) {
-    return false;
-  }
-  // eslint-disable-next-line no-restricted-globals
-  if (isNaN(date)) {
-    return false;
-  }
-  return true;
-}
-
-
-/**
- * @param {{name: string, date: string, description: string}} newEventArgs
+ * @param {{
+ *  name: string,
+ *  userId: string,
+ *  description: string
+ *  location: string,
+ *  startDateTime: string,
+ *  endDateTime: string,
+ *  }} newEventArgs
  * @returns {Promise<*>}
  */
 async function create(newEventArgs) {
   // use object destructuring in-case additional args are passed.
   const {
     name,
+    userId,
     description,
     location,
     startDateTime,
@@ -99,6 +111,7 @@ async function create(newEventArgs) {
     const event = new MongooseModel(
       {
         name,
+        userId,
         description,
         location,
         startDateTime,
@@ -118,4 +131,5 @@ module.exports = {
   eventErrors,
   EVENT,
   eventSchema,
+  ...KEYS,
 };

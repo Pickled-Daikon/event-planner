@@ -23,9 +23,9 @@ const userErrors = {
 
 // define mongoose model
 const userSchema = new mongoose.Schema({
-  email: String,
-  password: String,
-  isAdmin: Boolean,
+  [EMAIL]: String,
+  [PASSWORD]: String,
+  [IS_ADMIN]: Boolean,
 });
 
 // create mongoose model
