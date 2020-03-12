@@ -1,13 +1,13 @@
 const router = require('express').Router({ mergeParams: true });
 
-const { createUser } = require('../../controllers/users');
+const { createUser, login } = require('../../controllers/users');
 
 const PATHS = {
   USER: 'users',
-  GET: 'get',
+  LOGIN: 'login',
   CREATE: 'create',
 };
 
 router.post(`/${PATHS.USER}/${PATHS.CREATE}`, createUser);
-
+router.post(`/${PATHS.USER}/${PATHS.LOGIN}`, login);
 module.exports = router;

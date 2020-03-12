@@ -3,10 +3,10 @@
  * All functions are async to play nice with model functions.
  */
 
-const eventModel = require('../models/event');
+const Event = require('../models/event');
 const { getMissingProps } = require('./helpers');
 
-const modelErrors = eventModel.eventErrors;
+const modelErrors = Event.eventErrors;
 
 /**
  * Helper function that switches on error type and creates
@@ -44,7 +44,7 @@ async function getEvents(req, res) {
   let events;
   try {
     // get all events
-    events = await eventModel.getAll();
+    events = await Event.getAll();
   } catch (e) {
     // eslint-disable-next-line no-console
     console.log('Failed to get events');
@@ -94,7 +94,7 @@ async function createEvent(req, res) {
 
   let event;
   try {
-    event = await eventModel.create({
+    event = await Event.create({
       name,
       description,
       location,
