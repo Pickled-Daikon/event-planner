@@ -11,7 +11,7 @@ import {
 } from 'semantic-ui-react';
 import '../style.css';
 
-const ALPHA_NUMERIC_WC = /^[0-9a-zA-Z]+$/;
+const ALPHA_WC = /^[a-zA-Z]+$/;
 
 const MAX_NAME_LEN = 30;
 const MAX_PW_LEN = 16;
@@ -62,7 +62,7 @@ function fieldErrorCheck(fieldValues) {
     return ERROR_MSGS.FIRST_NAME_TOO_LONG;
   }
   // ensure name is for alpha numeric
-  if (!fName.match(ALPHA_NUMERIC_WC)) {
+  if (!fName.match(ALPHA_WC)) {
     return ERROR_MSGS.FIRST_NAME_INVALID_CHARS;
   }
 
@@ -74,7 +74,7 @@ function fieldErrorCheck(fieldValues) {
     return ERROR_MSGS.LAST_NAME_TOO_LONG;
   }
   // ensure name is for alpha numeric
-  if (!lName.match(ALPHA_NUMERIC_WC)) {
+  if (!lName.match(ALPHA_WC)) {
     return ERROR_MSGS.LAST_NAME_INVALID_CHARS;
   }
 
