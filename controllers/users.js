@@ -12,7 +12,7 @@ const {
   ID,
   EMAIL,
   PASSWORD,
-  IS_ADMIN
+  IS_ADMIN,
 } = User;
 
 /*
@@ -29,6 +29,7 @@ const ERR_MSGS = {
   TOKEN_SIGN_FAILED: 'Failed to tokenize user',
   NO_USER_FOUND: 'No user was found with given email and password',
   PW_COMPARE_FAILED: 'Failed to compare password hash',
+  INVALID_TOKEN: 'Invalid Token',
 };
 
 
@@ -117,7 +118,7 @@ async function createUser(req, res) {
 
   try {
     const tokenizedUser = await tokenizeUser(createdUser);
-    return res.status(200).json({ user: tokenizedUser });
+    return res.status(200).json({ jwtToken: tokenizedUser });
   } catch (e) {
     console.log(e);
     return res.status(400).json({ error: ERR_MSGS.TOKEN_SIGN_FAILED });
@@ -172,14 +173,25 @@ async function login(req, res) {
 
   try {
     const tokenizedUser = await tokenizeUser(foundUser);
-    return res.status(200).json({ user: tokenizedUser });
+    return res.status(200).json({ jwtToken: tokenizedUser });
   } catch (e) {
     return res.status(400).json({ error: ERR_MSGS.TOKEN_SIGN_FAILED });
+  }
+}
+
+async function verifyToken(req, res) {
+  const token = req.body.jwtToken;
+  try {
+    await jwt.verify(token, JWT_KEY);
+    return res.status(200).json({ jwtToken: token });
+  } catch (e) {
+    return res.status(400).json({ error: ERR_MSGS.INVALID_TOKEN });
   }
 }
 
 
 module.exports = {
   createUser,
+  verifyToken,
   login,
 };
