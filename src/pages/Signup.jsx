@@ -29,8 +29,8 @@ const ERROR_MSGS = {
   FIRST_NAME_TOO_LONG: `Sign up failed. First name cannot exceed ${MAX_NAME_LEN} characters.`,
   FIRST_NAME_INVALID_CHARS: 'Sign up failed. First name contains invalid characters.',
 
-  LAST_NAME_IS_EMPTY: 'Sign up failed. First name cannot be empty.',
-  LAST_NAME_TOO_LONG: `Sign up failed. First name cannot exceed ${MAX_NAME_LEN} characters`,
+  LAST_NAME_IS_EMPTY: 'Sign up failed. Last name cannot be empty.',
+  LAST_NAME_TOO_LONG: `Sign up failed. Last name cannot exceed ${MAX_NAME_LEN} characters`,
   LAST_NAME_INVALID_CHARS: 'Sign up failed. First name contains invalid characters.',
 
   EMAIL_IS_EMPTY: 'Sign up failed. Email cannot be empty',
