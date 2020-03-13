@@ -1,11 +1,18 @@
-import React, {useEffect, useState} from 'react';
-import {login, verifyToken, storeJwtToken} from "../api/users";
+import React, { useEffect, useState } from 'react';
+import {
+  login,
+  verifyToken,
+  storeJwtToken,
+  ERROR_TYPES,
+  ERRORS,
+} from '../api/users';
 
 import {
   Form,
   Button,
   Label,
   Header,
+  Message,
 } from 'semantic-ui-react';
 import '../style.css';
 import {
@@ -13,10 +20,16 @@ import {
   Redirect,
 } from 'react-router-dom';
 
+const ERROR_MSGS = {
+  SERVER_ERROR: 'We\'re sorry, our servers are not responding.',
+  NO_USER_FOUND: 'Login failed: Incorrect email/password',
+};
+
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [errorMsg, setErrorMsg] = useState(null);
 
   useEffect(() => {
     verifyToken()
@@ -40,16 +53,26 @@ function Login() {
         storeJwtToken(jwtToken);
         setIsLoggedIn(true);
       }).catch((e) => {
-        console.log('login failed');
-    });
+        if (e === ERRORS[ERROR_TYPES.NO_USER_FOUND]) {
+          setErrorMsg(ERROR_MSGS.NO_USER_FOUND);
+        }
+      });
   };
   if (isLoggedIn) {
-    return <Redirect to={'../dashboard'} />;
+    return <Redirect to="../dashboard" />;
   }
 
   return (
     <>
       <div className="loginStyle">
+        {
+          errorMsg
+            ? <Message error>
+                {errorMsg}
+             </Message>
+            : null
+        }
+
         <Form size="small" key="small">
           <Header as="h1">Login Page</Header>
           <Form.Field width={20}>
