@@ -11,6 +11,7 @@ function App() {
       <NavBar />
       <Switch>
         <Route exact path="/" component={Login} />
+        <Route exact path="/dashboard" component={MainCalendarPage} />
         <Route path="/Signup" component={Signup} />
       </Switch>
     </Router>
