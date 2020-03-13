@@ -1,20 +1,30 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
+import {login, verifyToken, storeJwtToken} from "../api/users";
+
 import {
-  Form, Button, Label, Header,
+  Form,
+  Button,
+  Label,
+  Header,
 } from 'semantic-ui-react';
 import '../style.css';
 import {
   NavLink,
+  Redirect,
 } from 'react-router-dom';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  function loggingIn() {
-    console.log(email);
-    console.log(password);
-  }
+  useEffect(() => {
+    verifyToken()
+      .then(() => {
+        setIsLoggedIn(true);
+      })
+      .catch(() => {});
+  }, []);
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -23,6 +33,19 @@ function Login() {
   const handlePassChange = (e) => {
     setPassword(e.target.value);
   };
+
+  const handleLogin = () => {
+    login(email, password)
+      .then((jwtToken) => {
+        storeJwtToken(jwtToken);
+        setIsLoggedIn(true);
+      }).catch((e) => {
+        console.log('login failed');
+    });
+  };
+  if (isLoggedIn) {
+    return <Redirect to={'../dashboard'} />;
+  }
 
   return (
     <>
@@ -37,7 +60,7 @@ function Login() {
             <Label>Password</Label>
             <input onChange={handlePassChange} type="password" value={password} placeholder="*********" />
           </Form.Field>
-          <Button onClick={loggingIn}>Log In</Button>
+          <Button onClick={handleLogin}>Log In</Button>
           <Button as={NavLink} exact to="/Signup"> Sign up</Button>
         </Form>
       </div>
