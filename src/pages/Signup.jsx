@@ -1,20 +1,34 @@
 import React, { useState } from 'react';
+import {Redirect} from 'react-router-dom';
+import {createUser, storeJwtToken} from "../api/users";
 import {
-  Form, Container, Segment, Grid, Header,
+  Form,
+  Container,
+  Segment,
+  Grid,
+  Header,
 } from 'semantic-ui-react';
 import '../style.css';
-import { NavLink } from 'react-router-dom';
 
 function Signup() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
-  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  function handleSignup(e) {
-    console.log(firstName, lastName, email, username, password);
-  }
+  const handleSignup = () => {
+    createUser({
+      firstName,
+      lastName,
+      email,
+      password,
+      isAdmin: false,
+    }).then((token) => {
+      storeJwtToken(token);
+      setIsLoggedIn(true);
+    });
+  };
 
   const firstNameChange = (e) => {
     setFirstName(e.target.value);
@@ -25,14 +39,13 @@ function Signup() {
   const emailChange = (e) => {
     setEmail(e.target.value);
   };
-  const usernameChange = (e) => {
-    setUsername(e.target.value);
-  };
   const passwordChange = (e) => {
     setPassword(e.target.value);
   };
 
-
+  if (isLoggedIn) {
+    return <Redirect to="../" />;
+  }
   return (
     <>
       <Container>
@@ -72,15 +85,6 @@ function Signup() {
                   placeholder="example@hotmail.com"
                   type="email"
                   onChange={emailChange}
-                />
-                <Form.Input
-                  label="Username"
-                  icon="user"
-                  iconPosition="left"
-                  value={username}
-                  placeholder="Enter Your Username"
-                  type="username"
-                  onChange={usernameChange}
                 />
                 <Form.Input
                   label="Password"
