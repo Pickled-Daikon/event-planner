@@ -1,5 +1,5 @@
 import React from 'react';
-import {Form, Button, TextArea, Header} from 'semantic-ui-react';
+import {Form, Button, TextArea, Header, Message} from 'semantic-ui-react';
 import createICS from "../api/createics";
 
 import {
@@ -7,6 +7,10 @@ import {
   TimeInput
 } from 'semantic-ui-calendar-react';
 import {createEvent} from "../api/events";
+
+const ERROR_MESSAGES = {
+  SERVER_ERROR: 'We\'re sorry, the server is not responding right now',
+};
 
 export const CREATE_EVENT_STATUSES = {
     DEFAULT: 0,
@@ -21,6 +25,7 @@ const DEFAULT_STATE = {
   date: '',
   startTime: '',
   endTime: '',
+  errorMsg: null,
 };
 
 class CreateEvent extends React.Component {
@@ -33,6 +38,9 @@ class CreateEvent extends React.Component {
         this.state = {...DEFAULT_STATE};
     }
 
+    setErrorMsg = (msg) => {
+      this.setState(({errorMsg: msg}));
+    };
 
     onSubmit = () => {
         const {

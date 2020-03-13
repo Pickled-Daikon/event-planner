@@ -8,10 +8,10 @@ export const GET_EVENTS_URL = `${API_ROOT_URL}/events/get`;
 export const CREATE_EVENT_URL = `${API_ROOT_URL}/events/create`;
 
 const ERRORS = {
-  INVALID_NAME: new Error(''),
-  INVALID_LOCATION: new Error(''),
-  INVALID_START_DT: new Error(''),
-  INVALID_END_DT: new Error(''),
+  INVALID_NAME: new Error('Invalid name'),
+  INVALID_LOCATION: new Error('Invalid location'),
+  INVALID_START_DT: new Error('Invalid start datetime'),
+  INVALID_END_DT: new Error('Invalid end datetime'),
 };
 
 /**
@@ -58,8 +58,9 @@ export async function createEvent(eventObj) {
     startDateTime,
     endDateTime,
   } = eventObj;
-  let jsonResp;
 
+
+  let jsonResp;
   try {
     const resp = await fetch(CREATE_EVENT_URL, {
       method: 'POST',
