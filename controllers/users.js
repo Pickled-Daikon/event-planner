@@ -22,16 +22,29 @@ Error messages that may be returned in http body.
 Messages are more explicit then they need to be for
 the purpose of debugging.
 */
+
+const ERROR_TYPES = {
+  UNDEFINED: 'UNDEFINED',
+  MISSING_PARAMS: 'MISSING_PARAMS',
+  USER_EXISTS: 'USER_EXISTS',
+  PW_HASH_FAILED: 'PW_HASH_FAILED',
+  INSERT_QUERY_FAILED: 'INSERT_QUERY_FAILED',
+  TOKEN_SIGN_FAILED: 'TOKEN_SIGN_FAILED',
+  NO_USER_FOUND: 'NO_USER_FOUND',
+  PW_COMPARE_FAILED: 'PW_COMPARE_FAILED',
+  INVALID_TOKEN: 'INVALID_TOKEN',
+};
+
 const ERR_MSGS = {
-  UNDEFINED: 'An undefined server error has occurred.',
-  MISSING_PARAMS: 'Missing params, make sure email and password is included in post body',
-  USER_EXISTS: 'A user with the given email address already exists',
-  PW_HASH_FAILED: 'Failed to hash password',
-  INSERT_QUERY_FAILED: 'Failed to insert user into the database',
-  TOKEN_SIGN_FAILED: 'Failed to tokenize user',
-  NO_USER_FOUND: 'No user was found with given email and password',
-  PW_COMPARE_FAILED: 'Failed to compare password hash',
-  INVALID_TOKEN: 'Invalid Token',
+  [ERROR_TYPES.UNDEFINED]: 'An undefined server error has occurred.',
+  [ERROR_TYPES.MISSING_PARAMS]: 'Missing params, make sure email and password is included in post body',
+  [ERROR_TYPES.USER_EXISTS]: 'A user with the given email address already exists',
+  [ERROR_TYPES.PW_HASH_FAILED]: 'Failed to hash password',
+  [ERROR_TYPES.INSERT_QUERY_FAILED]: 'Failed to insert user into the database',
+  [ERROR_TYPES.TOKEN_SIGN_FAILED]: 'Failed to tokenize user',
+  [ERROR_TYPES.NO_USER_FOUND]: 'No user was found with given email and password',
+  [ERROR_TYPES.PW_COMPARE_FAILED]: 'Failed to compare password hash',
+  [ERROR_TYPES.INVALID_TOKEN]: 'Invalid Token',
 };
 
 
@@ -83,31 +96,33 @@ async function createUser(req, res) {
   // eslint-disable-next-line no-restricted-syntax
   for (let param of [email, password, firstName, lastName]) {
     if (param === '' || param === undefined) {
-      return res.status(400).json({ error: ERR_MSGS.MISSING_PARAMS });
+      return res.status(400).json({
+        errorMsg: ERR_MSGS.MISSING_PARAMS
+      });
     }
   }
 
   if (!(isAdmin !== 'True' && isAdmin !== 'False')) {
-    return res.status(400).json({ error: ERR_MSGS.MISSING_PARAMS });
+    return res.status(400).json({ errorMsg: ERR_MSGS.MISSING_PARAMS });
   }
 
   // find user with same email
   try {
     const existingUser = await User.fetchUser(email);
     if (existingUser !== null) {
-      return res.status(400).json({ error: ERR_MSGS.USER_EXISTS });
+      return res.status(400).json({ errorMsg: ERR_MSGS.USER_EXISTS });
     }
   } catch (e) {
     // eslint-disable-next-line no-console
     console.log(e);
-    return res.status(400).json({ error: ERR_MSGS.UNDEFINED });
+    return res.status(400).json({ errorMsg: ERR_MSGS.UNDEFINED });
   }
   let hashedPassword = '';
 
   try {
     hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
   } catch (e) {
-    return res.status(400).json({ error: ERR_MSGS.PW_HASH_FAILED });
+    return res.status(400).json({ errorMsg: ERR_MSGS.PW_HASH_FAILED });
   }
   let createdUser;
 
@@ -122,7 +137,7 @@ async function createUser(req, res) {
   } catch (e) {
     // eslint-disable-next-line no-console
     console.log(e);
-    return res.status(400).json({ error: ERR_MSGS.UNDEFINED });
+    return res.status(400).json({ errorMsg: ERR_MSGS.UNDEFINED });
   }
 
   try {
@@ -130,7 +145,7 @@ async function createUser(req, res) {
     return res.status(200).json({ jwtToken: tokenizedUser });
   } catch (e) {
     console.log(e);
-    return res.status(400).json({ error: ERR_MSGS.TOKEN_SIGN_FAILED });
+    return res.status(400).json({ errorMsg: ERR_MSGS.TOKEN_SIGN_FAILED });
   }
 }
 
@@ -156,33 +171,51 @@ async function login(req, res) {
   // eslint-disable-next-line no-restricted-syntax
   for (let param of [email, password]) {
     if (param === '' || param === undefined) {
-      return res.status(400).json({ error: ERR_MSGS.MISSING_PARAMS });
+      return res.status(400).json({
+        error: ERROR_TYPES.MISSING_PARAMS,
+        errorMsg: ERR_MSGS.MISSING_PARAMS,
+      });
     }
   }
 
   try {
     foundUser = await User.fetchUser(email);
     if (foundUser === null) {
-      return res.status(400).json({ error: ERR_MSGS.NO_USER_FOUND });
+      return res.status(400).json({
+        error: ERROR_TYPES.NO_USER_FOUND,
+        errorMsg: ERR_MSGS.NO_USER_FOUND,
+      });
     }
   } catch (e) {
-    return res.status(400).json({ error: ERR_MSGS.UNDEFINED });
+    return res.status(400).json({
+      eror: ERROR_TYPES.UNDEFINED,
+      errorMsg: ERR_MSGS.UNDEFINED,
+    });
   }
 
   try {
     const pwMatch = bcrypt.compare(password, foundUser[User.PASSWORD]);
     if (!pwMatch) {
-      return res.status(400).json({ error: ERR_MSGS.NO_USER_FOUND });
+      return res.status(400).json({
+        error: ERROR_TYPES.NO_USER_FOUND,
+        errorMsg: ERR_MSGS.NO_USER_FOUND,
+      });
     }
   } catch (e) {
-    return res.status(400).json({ error: ERR_MSGS.PW_COMPARE_FAILED });
+    return res.status(400).json({
+      error: ERROR_TYPES.PW_COMPARE_FAILED,
+      errorMsg: ERR_MSGS.PW_COMPARE_FAILED,
+    });
   }
 
   try {
     const tokenizedUser = await tokenizeUser(foundUser);
     return res.status(200).json({ jwtToken: tokenizedUser });
   } catch (e) {
-    return res.status(400).json({ error: ERR_MSGS.TOKEN_SIGN_FAILED });
+    return res.status(400).json({
+      error: ERROR_TYPES.TOKEN_SIGN_FAILED,
+      errorMsg: ERR_MSGS.TOKEN_SIGN_FAILED,
+    });
   }
 }
 
@@ -192,7 +225,10 @@ async function verifyToken(req, res) {
     await jwt.verify(token, JWT_KEY);
     return res.status(200).json({ jwtToken: token });
   } catch (e) {
-    return res.status(400).json({ error: ERR_MSGS.INVALID_TOKEN });
+    return res.status(400).json({
+      eror: ERROR_TYPES.INVALID_TOKEN,
+      errorMsg: ERR_MSGS.INVALID_TOKEN,
+    });
   }
 }
 
