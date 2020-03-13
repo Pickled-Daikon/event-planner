@@ -1,6 +1,6 @@
 const router = require('express').Router({ mergeParams: true });
 
-const { createUser, login, verifyToken} = require('../../controllers/users');
+const { createUser, login, verifyToken } = require('../../controllers/users');
 
 const PATHS = {
   USER: 'users',
