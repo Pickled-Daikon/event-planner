@@ -36,6 +36,7 @@ const ERROR_MSGS = {
   EMAIL_IS_EMPTY: 'Sign up failed. Email cannot be empty',
   INVALID_EMAIL: 'Sign up failed. Email is in an invalid format.',
 
+  PASSWORD_IS_EMPTY: 'Sign up failed. Password cannot be empty',
   PASSWORD_TOO_SHORT: `Sign up failed. Password must be at least ${MIN_PW_LEN} characters`,
   PASSWORD_TOO_LONG: `Sign up failed. Password cannot exceed ${MAX_PW_LEN} characters`,
   PASSWORD_MISSING_CHARS: 'Sign up failed. Password must contain 1 upper-case, '
@@ -88,9 +89,12 @@ function fieldErrorCheck(fieldValues) {
 
   /* ****** password error checks ****** */
   if (pw.length === '' || !pw) {
+    return ERROR_MSGS.PASSWORD_IS_EMPTY;
+  }
+  if (pw.length < MIN_PW_LEN) {
     return ERROR_MSGS.PASSWORD_TOO_SHORT;
   }
-  if (pw.length > MIN_PW_LEN) {
+  if (pw.length > MAX_NAME_LEN) {
     return ERROR_MSGS.PASSWORD_TOO_LONG;
   }
   if (!pw.match(PASSWORD_SPECIAL_WC)) {
