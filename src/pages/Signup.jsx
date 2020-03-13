@@ -17,7 +17,7 @@ const MAX_NAME_LEN = 30;
 const MAX_PW_LEN = 16;
 const MIN_PW_LEN = 6;
 const EMAIL_WC = /(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@[*[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+]*/;
-const PASSWORD_SPECIAL_WC = /.*[!@#$%^&*()_\-+=?/<>;:'"\\|~`]+.*/;
+const PASSWORD_SPECIAL_WC = /.*[!@#$%^&*()_\-+=?/<>;:'"\\|~`.]+.*/;
 const PASSWORD_CAPITAL_WC = /.*[A-Z]+.*/;
 const PASSWORD_NUMBER_WC = /.*[0-9]+.*/;
 
