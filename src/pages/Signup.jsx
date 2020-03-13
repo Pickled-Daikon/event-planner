@@ -13,10 +13,14 @@ import '../style.css';
 
 const ALPHA_NUMERIC_WC = /^[0-9a-zA-Z]+$/;
 
-
 const MAX_NAME_LEN = 30;
 const MAX_PW_LEN = 16;
 const MIN_PW_LEN = 6;
+const EMAIL_WC = /(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@[*[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+]*/;
+const PASSWORD_SPECIAL_WC = /^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+$/;
+const PASSWORD_CAPITAL_WC = /^[A-Z]+$/;
+const PASSWORD_NUMBER_WC = /^[0-9]+$/;
+
 
 const ERROR_MSGS = {
   SERVER_ERROR: 'A server error has occurred.',
@@ -44,16 +48,59 @@ const ERROR_MSGS = {
  */
 function fieldErrorCheck(fieldValues) {
 
-  if (fieldValues.firstName === '' || !fieldValues.firstName) {
+  // renamed consts since consistent names is causing problems w/ react hooks
+  const fName = fieldValues.firstName;
+  const lName = fieldValues.lastName;
+  const pw = fieldValues.password;
+  const mailAddr = fieldValues.email;
+
+  /* ****** first name error checks ****** */
+  if (fName === '' || !fName) {
     return ERROR_MSGS.FIRST_NAME_IS_EMPTY;
   }
-  if (fieldValues.firstName.length > MAX_NAME_LEN) {
+  if (fName.length > MAX_NAME_LEN) {
     return ERROR_MSGS.FIRST_NAME_TOO_LONG;
   }
-
   // ensure name is for alpha numeric
-  if (!fieldValues.firstName.match(ALPHA_NUMERIC_WC)) {
+  if (!fName.match(ALPHA_NUMERIC_WC)) {
     return ERROR_MSGS.FIRST_NAME_INVALID_CHARS;
+  }
+
+  /* ****** last name error checks ****** */
+  if (lName === '' || !lName) {
+    return ERROR_MSGS.LAST_NAME_IS_EMPTY;
+  }
+  if (lName.length > MAX_NAME_LEN) {
+    return ERROR_MSGS.LAST_NAME_TOO_LONG;
+  }
+  // ensure name is for alpha numeric
+  if (!lName.match(ALPHA_NUMERIC_WC)) {
+    return ERROR_MSGS.LAST_NAME_INVALID_CHARS;
+  }
+
+  /* ****** email error checks ******* */
+  if (mailAddr === '' || !mailAddr) {
+    return ERROR_MSGS.EMAIL_IS_EMPTY;
+  }
+  if (!mailAddr.match(EMAIL_WC)) {
+    return ERROR_MSGS.INVALID_EMAIL;
+  }
+
+  /* ****** password error checks ****** */
+  if (pw.length === '' || !pw) {
+    return ERROR_MSGS.PASSWORD_TOO_SHORT;
+  }
+  if (pw.length > MIN_PW_LEN) {
+    return ERROR_MSGS.PASSWORD_TOO_LONG;
+  }
+  if (!pw.match(PASSWORD_SPECIAL_WC)) {
+    return ERROR_MSGS.PASSWORD_MISSING_CHARS;
+  }
+  if (!pw.match(PASSWORD_CAPITAL_WC)) {
+    return ERROR_MSGS.PASSWORD_MISSING_CHARS;
+  }
+  if (!pw.match(PASSWORD_NUMBER_WC)) {
+    return ERROR_MSGS.PASSWORD_MISSING_CHARS;
   }
   return null;
 }
