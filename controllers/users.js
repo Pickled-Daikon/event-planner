@@ -150,11 +150,11 @@ async function createUser(req, res) {
  * @returns {Promise<*>}
  */
 async function login(req, res) {
-  const { email, password, firstName, lastName } = req.body;
+  const { email, password } = req.body;
   let foundUser;
 
   // eslint-disable-next-line no-restricted-syntax
-  for (let param of [email, password, firstName, lastName]) {
+  for (let param of [email, password]) {
     if (param === '' || param === undefined) {
       return res.status(400).json({ error: ERR_MSGS.MISSING_PARAMS });
     }
