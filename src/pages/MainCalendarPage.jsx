@@ -8,6 +8,7 @@ import {
 } from 'semantic-ui-react';
 import Calendar from '../components/Calendar';
 import CreateEvent, { CREATE_EVENT_STATUSES } from '../components/CreateEvent';
+import NavBar from "../components/NavBar";
 
 const MESSAGES = {
   CREATE_SUCCESS: 'Event successfully created!',
@@ -46,6 +47,7 @@ function MainCalendarPage() {
   // new function that calls setcreatesuccess
   return (
     <>
+      <NavBar />
       <Message
         hidden={createStatus === CREATE_EVENT_STATUSES.DEFAULT}
         error={createStatus === CREATE_EVENT_STATUSES.ERROR}
