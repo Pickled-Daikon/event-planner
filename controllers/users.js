@@ -13,6 +13,8 @@ const {
   EMAIL,
   PASSWORD,
   IS_ADMIN,
+  FIRST_NAME,
+  LAST_NAME,
 } = User;
 
 /*
@@ -41,8 +43,11 @@ async function tokenizeUser(user) {
     [EMAIL]: user[EMAIL],
     [PASSWORD]: user[PASSWORD],
     [IS_ADMIN]: user[IS_ADMIN],
+    [FIRST_NAME]: user[FIRST_NAME],
+    [LAST_NAME]: user[LAST_NAME],
   };
 
+  // eslint-disable-next-line no-useless-catch
   try {
     return await jwt.sign(plainUser, JWT_KEY, { expiresIn: JWT_EXPIRATION });
   } catch (e) {
@@ -70,20 +75,22 @@ async function createUser(req, res) {
     email,
     password,
     isAdmin,
+    firstName,
+    lastName,
   } = req.body;
 
-  if (email === '' || email === undefined) {
-    return res.status(400).json({ error: ERR_MSGS.MISSING_PARAMS });
-  }
 
-  if (password === '' || password === undefined) {
-    return res.status(400).json({ error: ERR_MSGS.MISSING_PARAMS });
+  // eslint-disable-next-line no-restricted-syntax
+  for (let param of [email, password, firstName, lastName]) {
+    if (param === '' || param === undefined) {
+      return res.status(400).json({ error: ERR_MSGS.MISSING_PARAMS });
+    }
   }
 
   if (!(isAdmin !== 'True' && isAdmin !== 'False')) {
     return res.status(400).json({ error: ERR_MSGS.MISSING_PARAMS });
-
   }
+
   // find user with same email
   try {
     const existingUser = await User.fetchUser(email);
@@ -109,6 +116,8 @@ async function createUser(req, res) {
       email,
       password: hashedPassword,
       isAdmin: Boolean(isAdmin),
+      firstName,
+      lastName,
     });
   } catch (e) {
     // eslint-disable-next-line no-console
@@ -141,17 +150,15 @@ async function createUser(req, res) {
  * @returns {Promise<*>}
  */
 async function login(req, res) {
-  const { email, password } = req.body;
+  const { email, password, firstName, lastName } = req.body;
   let foundUser;
 
-  if (email === '' || email === undefined) {
-    return res.status(400).json({ error: ERR_MSGS.MISSING_PARAMS });
+  // eslint-disable-next-line no-restricted-syntax
+  for (let param of [email, password, firstName, lastName]) {
+    if (param === '' || param === undefined) {
+      return res.status(400).json({ error: ERR_MSGS.MISSING_PARAMS });
+    }
   }
-
-  if (password === '' || password === undefined) {
-    return res.status(400).json({ error: ERR_MSGS.MISSING_PARAMS });
-  }
-
 
   try {
     foundUser = await User.fetchUser(email);
@@ -188,7 +195,6 @@ async function verifyToken(req, res) {
     return res.status(400).json({ error: ERR_MSGS.INVALID_TOKEN });
   }
 }
-
 
 module.exports = {
   createUser,
