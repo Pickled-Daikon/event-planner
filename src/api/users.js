@@ -17,15 +17,15 @@ function getJwtToken() {
 async function login(email, password) {
   let jsonResp;
   try {
-    const resp = await await fetch(LOGIN_URL, {
+    const resp = await fetch(LOGIN_URL, {
       method: 'POST',
       headers: {
         'content-type': 'application/json',
       },
-      body: {
+      body: JSON.stringify({
         email,
         password,
-      },
+      }),
     });
     jsonResp = await resp.json();
   } catch (e) {
@@ -50,7 +50,7 @@ async function createUser(userObj) {
       headers: {
         'content-type': 'application/json',
       },
-      body: userObj,
+      body: JSON.stringify(userObj),
     });
     jsonResp = await resp.json();
   } catch (e) {
@@ -74,12 +74,14 @@ async function verifyToken() {
 
   let jsonResp;
   try {
-    const resp = await fetch(CREATE_USER_URL, {
+    const resp = await fetch(VERIFY_TOKEN_URL, {
       method: 'POST',
       headers: {
         'content-type': 'application/json',
       },
-      jwtToken: token,
+      body: JSON.stringify({
+        jwtToken: token,
+      }),
     });
     jsonResp = await resp.json();
   } catch (e) {
