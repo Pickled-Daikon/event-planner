@@ -1,10 +1,10 @@
 import { API_ROOT_URL } from './constants';
+import { getJwtToken, setJwtToken } from './jwt';
 
 export const LOGIN_URL = `${API_ROOT_URL}/users/login`;
 export const CREATE_USER_URL = `${API_ROOT_URL}/users/create`;
 export const VERIFY_TOKEN_URL = `${API_ROOT_URL}/users/verify`;
 
-export const JWT_TOKEN = 'jwtToken';
 
 // todo: move Errors to be shared between client/server
 export const ERROR_TYPES = {
@@ -31,14 +31,6 @@ export const ERRORS = {
   [ERROR_TYPES.INVALID_TOKEN]: new Error('Invalid Token'),
 };
 
-
-function storeJwtToken(token) {
-  localStorage.setItem(JWT_TOKEN, token);
-}
-
-function getJwtToken() {
-  return localStorage.getItem(JWT_TOKEN);
-}
 
 async function login(email, password) {
   let jsonResp;
@@ -121,12 +113,10 @@ async function verifyToken() {
   if (!jsonResp.jwtToken) {
     throw ERRORS[ERROR_TYPES.UNDEFINED];
   }
-  storeJwtToken(jsonResp.jwtToken);
+  setJwtToken(jsonResp.jwtToken);
 }
 
 export {
-  storeJwtToken,
-  getJwtToken,
   login,
   createUser,
   verifyToken,

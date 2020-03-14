@@ -1,14 +1,14 @@
-import React, {useState} from 'react';
-import {Redirect} from 'react-router-dom';
-import {storeJwtToken} from "../api/users";
+import React, { useState } from 'react';
+import { Redirect } from 'react-router-dom';
 import { Header, Icon, Button } from 'semantic-ui-react';
+import { setJwtToken } from '../api/jwt';
 import '../style.css';
 
 function NavBar() {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   const handleLogout = () => {
-    storeJwtToken(null);
+    setJwtToken(null);
     setIsLoggedIn(false);
   };
 
@@ -22,7 +22,7 @@ function NavBar() {
         <Icon name="calendar" size="large" />
         Daikon Calendar
       </Header>
-      <Button floated={'right'} onClick={handleLogout}>
+      <Button floated="right" onClick={handleLogout}>
         Logout
       </Button>
     </div>

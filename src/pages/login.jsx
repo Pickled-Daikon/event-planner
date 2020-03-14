@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import {
   login,
   verifyToken,
-  storeJwtToken,
   ERROR_TYPES,
   ERRORS,
 } from '../api/users';
+
+import {setJwtToken} from "../api/jwt";
 
 import {
   Form,
@@ -50,7 +51,7 @@ function Login() {
   const handleLogin = () => {
     login(email, password)
       .then((jwtToken) => {
-        storeJwtToken(jwtToken);
+        setJwtToken(jwtToken);
         setIsLoggedIn(true);
       }).catch((e) => {
         if (e === ERRORS[ERROR_TYPES.NO_USER_FOUND]) {

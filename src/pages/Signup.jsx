@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {Redirect} from 'react-router-dom';
-import {createUser, storeJwtToken} from "../api/users";
+import {createUser} from "../api/users";
+import {setJwtToken} from "../api/jwt";
 import {
   Form,
   Container,
@@ -139,7 +140,7 @@ function Signup() {
       password,
       isAdmin: false,
     }).then((token) => {
-      storeJwtToken(token);
+      setJwtToken(token);
       setIsLoggedIn(true);
     }).catch(() => {
       setErrorMsg(ERROR_MSGS.SERVER_ERROR);
@@ -160,7 +161,7 @@ function Signup() {
   };
 
   if (isLoggedIn) {
-    return <Redirect to="../" />;
+    return <Redirect to="../"/>;
   }
   return (
     <>
@@ -170,7 +171,7 @@ function Signup() {
             <Header as="h2" textAlign="center">
               Register your account
             </Header>
-            { errorMsg ? <Message error>{errorMsg}</Message> : null }
+            {errorMsg ? <Message error>{errorMsg}</Message> : null}
             <Form onSubmit={handleSignup}>
               <Segment stacked>
                 <Form.Input
@@ -209,7 +210,7 @@ function Signup() {
                   type="password"
                   onChange={passwordChange}
                 />
-                <Form.Button content="Submit" />
+                <Form.Button content="Submit"/>
               </Segment>
             </Form>
           </Grid.Column>
