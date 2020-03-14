@@ -147,15 +147,27 @@ function Signup() {
   };
 
   const firstNameChange = (e) => {
+    if (errorMsg != null) {
+      setErrorMsg(null);
+    }
     setFirstName(e.target.value);
   };
   const lastNameChange = (e) => {
+    if (errorMsg != null) {
+      setErrorMsg(null);
+    }
     setLastName(e.target.value);
   };
   const emailChange = (e) => {
+    if (errorMsg != null) {
+      setErrorMsg(null);
+    }
     setEmail(e.target.value);
   };
   const passwordChange = (e) => {
+    if (errorMsg != null) {
+      setErrorMsg(null);
+    }
     setPassword(e.target.value);
   };
 
