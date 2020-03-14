@@ -1,5 +1,5 @@
 import React from 'react';
-import {Form, Button, TextArea, Header, Message} from 'semantic-ui-react';
+import {Form, Button, TextArea, Header, Message, Grid} from 'semantic-ui-react';
 import createICS from "../api/createics";
 
 import {
@@ -14,12 +14,13 @@ const MAX_NAME_LEN = 30;
 const MAX_DESCRIPTION_LEN = 120;
 
 
-const ERROR_MESSAGES = {
+export const ERROR_MESSAGES = {
+    DEFAULT: '',
   SERVER_ERROR: 'We\'re sorry, the server is not responding right now',
 
     NAME_OF_EVENT_IS_EMPTY: 'Failed to create event. Event must have a name.',
     DATE_IS_EMPTY: 'Failed to create event. Please enter a date.',
-    TIME_START_IS_EMPTY: 'Failed to create event. Please provide the time start of event.',
+    TIME_START_IS_EMPTY: 'Failed to create event. Please provide the start time of event.',
     TIME_END_IS_EMPTY: 'Failed to create event. Please provide the end time of event',
 
     NAME_OF_EVENT_IS_TOO_LONG: `Failed to create event. Event must be no longer than ${MAX_NAME_LEN}`,
@@ -28,13 +29,13 @@ const ERROR_MESSAGES = {
     TIME_END_IS_BEFORE_TIME_START: 'Failed to create event. The event must not end before the start time',
 
     INVALID_DATE_ENTERED: 'Failed to create event. Please enter a valid date',
-    INVALID_TIME_ENTERED: 'Failed to create event. Please enter a valid date',
+    INVALID_TIME_ENTERED: 'Failed to create event. Please enter a valid time',
 
 };
 
 /**
  *
- * @param {{name, description, location, date, timeStart, timeEnd}} fieldValues
+ * @param {{name, description, location, date, startTime, endTime}} fieldValues
  */
 function fieldErrorCheck(fieldValues) {
     // renamed consts since consistent names is causing problems w/ react hooks
@@ -42,8 +43,8 @@ function fieldErrorCheck(fieldValues) {
     const desc = fieldValues.description;
     const eDate = fieldValues.date;
     const loc = fieldValues.location;
-    const tStart = fieldValues.timeStart;
-    const tEnd = fieldValues.timeEnd;
+    const tStart = fieldValues.startTime;
+    const tEnd = fieldValues.endTime;
 
     /* ****** no empty fields ****** */
     if (eName === '' || !eName) {
@@ -54,7 +55,8 @@ function fieldErrorCheck(fieldValues) {
     }
     if (tStart === '' || !tStart) {
         return ERROR_MESSAGES.TIME_START_IS_EMPTY;
-    }    if (tEnd === '' || !tEnd) {
+    }
+    if (tEnd === '' || !tEnd) {
         return ERROR_MESSAGES.TIME_END_IS_EMPTY;
     }
 
@@ -68,7 +70,7 @@ function fieldErrorCheck(fieldValues) {
 
 
     /* ******* TIME END BEFORE TIME START ERROR ******* */
-    if (tStart.slice(0,2) < tEnd.slice(0,2)) {
+    if (tStart.slice(0,2) > tEnd.slice(0,2)) {
         return ERROR_MESSAGES.TIME_END_IS_BEFORE_TIME_START;
     }
 
@@ -123,6 +125,19 @@ class CreateEvent extends React.Component {
           endTime,
         } = this.state;
 
+        const fieldError = fieldErrorCheck({
+            name,
+            description,
+            location,
+            date,
+            startTime,
+            endTime,
+        });
+        if (fieldError) {
+            console.log(fieldError);
+            this.props.setErrMsg(fieldError);
+        }
+
 
       const dateArr = date.split('-');
       const newDate = [dateArr[1], dateArr[0], dateArr[2]].join('-');
@@ -147,7 +162,6 @@ class CreateEvent extends React.Component {
         console.log(this.state);
         console.log(startDateStr);
 
-
         createEvent({
           name,
           description,
@@ -159,6 +173,7 @@ class CreateEvent extends React.Component {
                 this.props.setCreateSuccess(CREATE_EVENT_STATUSES.SUCCESS);
                 downloadIcsFile(newEvent);
             }).catch(() => {
+                this.props.setErrMsg(fieldError)
                 this.props.setCreateSuccess(CREATE_EVENT_STATUSES.ERROR);
         })
 
