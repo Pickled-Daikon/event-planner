@@ -1,7 +1,5 @@
-import React, {useState} from 'react';
-import {Redirect} from 'react-router-dom';
-import {createUser} from "../api/users";
-import {setJwtToken} from "../api/jwt";
+import React, { useState } from 'react';
+import { Redirect } from 'react-router-dom';
 import {
   Form,
   Container,
@@ -10,7 +8,8 @@ import {
   Header,
   Message, MessageHeader, MessageList, MessageItem,
 } from 'semantic-ui-react';
-import { createUser, storeJwtToken } from '../api/users';
+import { createUser } from '../api/users';
+import { setJwtToken } from '../api/jwt';
 import '../style.css';
 
 const ALPHA_WC = /^[a-zA-Z]+$/;
@@ -174,7 +173,7 @@ function Signup() {
   };
 
   if (isLoggedIn) {
-    return <Redirect to="../"/>;
+    return <Redirect to="../" />;
   }
   return (
     <>
