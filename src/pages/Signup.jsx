@@ -8,8 +8,9 @@ import {
   Segment,
   Grid,
   Header,
-  Message,
+  Message, MessageHeader, MessageList, MessageItem,
 } from 'semantic-ui-react';
+import { createUser, storeJwtToken } from '../api/users';
 import '../style.css';
 
 const ALPHA_WC = /^[a-zA-Z]+$/;
@@ -17,6 +18,7 @@ const ALPHA_WC = /^[a-zA-Z]+$/;
 const MAX_NAME_LEN = 30;
 const MAX_PW_LEN = 16;
 const MIN_PW_LEN = 6;
+// eslint-disable-next-line no-useless-escape
 const EMAIL_WC = /(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@[*[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+]*/;
 const PASSWORD_SPECIAL_WC = /.*[!@#$%^&*()_\-+=?/<>;:'"\\|~`.]+.*/;
 const PASSWORD_CAPITAL_WC = /.*[A-Z]+.*/;
@@ -49,7 +51,6 @@ const ERROR_MSGS = {
  * @param {{firstName, lastName, email, password}} fieldValues
  */
 function fieldErrorCheck(fieldValues) {
-
   // renamed consts since consistent names is causing problems w/ react hooks
   const fName = fieldValues.firstName;
   const lName = fieldValues.lastName;
@@ -148,15 +149,27 @@ function Signup() {
   };
 
   const firstNameChange = (e) => {
+    if (errorMsg != null) {
+      setErrorMsg(null);
+    }
     setFirstName(e.target.value);
   };
   const lastNameChange = (e) => {
+    if (errorMsg != null) {
+      setErrorMsg(null);
+    }
     setLastName(e.target.value);
   };
   const emailChange = (e) => {
+    if (errorMsg != null) {
+      setErrorMsg(null);
+    }
     setEmail(e.target.value);
   };
   const passwordChange = (e) => {
+    if (errorMsg != null) {
+      setErrorMsg(null);
+    }
     setPassword(e.target.value);
   };
 
@@ -210,7 +223,25 @@ function Signup() {
                   type="password"
                   onChange={passwordChange}
                 />
-                <Form.Button content="Submit"/>
+                <Message size="tiny">
+                  <MessageHeader>Password must contain the following:</MessageHeader>
+                  <MessageList>
+                    <MessageItem>
+                      6 to 16 characters in length
+                    </MessageItem>
+                    <MessageItem>
+                      At least 1 upper case letter
+                    </MessageItem>
+                    <MessageItem>
+                      At least 1 number
+                    </MessageItem>
+                    <MessageItem>
+                      {/* eslint-disable-next-line react/no-unescaped-entities */}
+                      At least 1 special character of (!@#$%^&*()_\-+=?/;:'"\\|~`.)
+                    </MessageItem>
+                  </MessageList>
+                </Message>
+                <Form.Button content="Submit" />
               </Segment>
             </Form>
           </Grid.Column>

@@ -7,20 +7,21 @@ import {
   Message,
 } from 'semantic-ui-react';
 import Calendar from '../components/Calendar';
-import CreateEvent, { CREATE_EVENT_STATUSES } from '../components/CreateEvent';
-import NavBar from "../components/NavBar";
+import CreateEvent, { CREATE_EVENT_STATUSES, ERROR_MESSAGES } from '../components/CreateEvent';
+import NavBar from '../components/NavBar';
 
 const MESSAGES = {
   CREATE_SUCCESS: 'Event successfully created!',
   CREATE_ERROR: 'We\'re sorry, we are unable to create you\'re event at this time',
 };
 
+
 function MainCalendarPage() {
   const [createStatus, setCreateStatus] = useState(CREATE_EVENT_STATUSES.DEFAULT);
   // hooks
+  const [errorMsg, setErrorMsg] = useState(null);
+  const currentMsg = createStatus === CREATE_EVENT_STATUSES.ERROR ? errorMsg : MESSAGES.CREATE_SUCCESS;
 
-
-  const currentMsg = createStatus === CREATE_EVENT_STATUSES.ERROR ? MESSAGES.CREATE_ERROR : MESSAGES.CREATE_SUCCESS;
 
   const setCreateStatusHandler = (status) => {
     switch (status) {
@@ -60,13 +61,13 @@ function MainCalendarPage() {
           </Grid.Column>
           <Grid.Column width={9}>
             <Button>
-              <Icon name="angle left icon" />
+              <Icon name="angle left" />
             </Button>
             <Button>
               Today
             </Button>
             <Button>
-              <Icon name="angle right icon" />
+              <Icon name="angle right" />
             </Button>
           </Grid.Column>
           <Grid.Column width={4}>
@@ -78,7 +79,7 @@ function MainCalendarPage() {
 
         <Grid.Row>
           <Grid.Column width={3}>
-            <CreateEvent setCreateSuccess={setCreateStatusHandler}>
+            <CreateEvent setCreateSuccess={setCreateStatusHandler} setErrMsg={setErrorMsg}>
               <Icon name="add" />
             </CreateEvent>
           </Grid.Column>
