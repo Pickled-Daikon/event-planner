@@ -10,7 +10,7 @@ import {
 } from 'semantic-ui-react';
 import { createUser } from '../api/users';
 import { setJwtToken } from '../api/jwt';
-import '../style.css';
+import '../css/style.css';
 
 const ALPHA_WC = /^[a-zA-Z]+$/;
 
@@ -177,7 +177,8 @@ function Signup() {
   }
   return (
     <>
-      <Container>
+      <div className="background">
+      <Container className="signUpStyle">
         <Grid textAlign="center" verticalAlign="middle" centered columns={2}>
           <Grid.Column>
             <Header as="h2" textAlign="center">
@@ -246,6 +247,7 @@ function Signup() {
           </Grid.Column>
         </Grid>
       </Container>
+      </div>
     </>
   );
 }

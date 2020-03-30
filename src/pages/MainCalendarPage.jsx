@@ -9,6 +9,8 @@ import {
 import Calendar from '../components/Calendar';
 import CreateEvent, { CREATE_EVENT_STATUSES, ERROR_MESSAGES } from '../components/CreateEvent';
 import NavBar from '../components/NavBar';
+import '../css/style.css';
+
 
 const MESSAGES = {
   CREATE_SUCCESS: 'Event successfully created!',
@@ -48,7 +50,8 @@ function MainCalendarPage() {
   // new function that calls setcreatesuccess
   return (
     <>
-      <NavBar />
+      <div className="background">
+      <NavBar/>
       <Message
         hidden={createStatus === CREATE_EVENT_STATUSES.DEFAULT}
         error={createStatus === CREATE_EVENT_STATUSES.ERROR}
@@ -56,26 +59,14 @@ function MainCalendarPage() {
         content={currentMsg}
       />
       <Grid>
-        <Grid.Row>
-          <Grid.Column width={3}>
-          </Grid.Column>
-          <Grid.Column width={9}>
-            <Button>
-              <Icon name="angle left" />
-            </Button>
-            <Button>
-              Today
-            </Button>
-            <Button>
-              <Icon name="angle right" />
-            </Button>
-          </Grid.Column>
-          <Grid.Column width={4}>
-            <Header>
-              February 2020
-            </Header>
-          </Grid.Column>
-        </Grid.Row>
+        {/*<Grid.Row>*/}
+        {/*  <Grid.Column width={7}>*/}
+        {/*  </Grid.Column>*/}
+        {/*  <Grid.Column width={9}>*/}
+        {/*    <Header as='h1'>Schedule</Header>*/}
+        {/*  </Grid.Column>*/}
+
+        {/*</Grid.Row>*/}
 
         <Grid.Row>
           <Grid.Column width={3}>
@@ -83,11 +74,12 @@ function MainCalendarPage() {
               <Icon name="add" />
             </CreateEvent>
           </Grid.Column>
-          <Grid.Column width={9}>
+          <Grid.Column width={9} className="calendarShift">
             <Calendar />
           </Grid.Column>
         </Grid.Row>
       </Grid>
+      </div>
     </>
   );
 }

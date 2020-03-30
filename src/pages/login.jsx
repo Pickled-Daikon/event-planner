@@ -1,21 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import {
+  Form,
+  Button,
+  Label,
+  Header,
+  Message,
+  Image,
+} from 'semantic-ui-react';
+import {
   login,
   verifyToken,
   ERROR_TYPES,
   ERRORS,
 } from '../api/users';
 
-import {setJwtToken} from "../api/jwt";
+import { setJwtToken } from '../api/jwt';
 
-import {
-  Form,
-  Button,
-  Label,
-  Header,
-  Message,
-} from 'semantic-ui-react';
-import '../style.css';
+import '../css/style.css';
 import {
   NavLink,
   Redirect,
@@ -63,30 +64,39 @@ function Login() {
     return <Redirect to="../dashboard" />;
   }
 
+
   return (
     <>
-      <div className="loginStyle">
-        {
+      <div className="background">
+        <div>
+          <Header as="h1" className="headerStyle">
+            <Image src="https://www.freeiconspng.com/uploads/letter-d-icon-png-28.png" className="headerPic" />
+            aikon Calendar
+          </Header>
+        </div>
+        <div className="loginStyle">
+          {
           errorMsg
-            ? <Message error>
+            ? (
+              <Message error>
                 {errorMsg}
-             </Message>
+              </Message>
+            )
             : null
         }
-
-        <Form size="small" key="small">
-          <Header as="h1">Login Page</Header>
-          <Form.Field width={20}>
-            <Label>Email</Label>
-            <input onChange={handleEmailChange} value={email} placeholder="example@hotmail.com" />
-          </Form.Field>
-          <Form.Field width={20}>
-            <Label>Password</Label>
-            <input onChange={handlePassChange} type="password" value={password} placeholder="*********" />
-          </Form.Field>
-          <Button onClick={handleLogin}>Log In</Button>
-          <Button as={NavLink} exact to="/Signup"> Sign up</Button>
-        </Form>
+          <Form size="small" key="small">
+            <Form.Field width={20}>
+              <Label>Email</Label>
+              <input inverted onChange={handleEmailChange} value={email} placeholder="example@hotmail.com" className="loginInputStyle" />
+            </Form.Field>
+            <Form.Field width={20}>
+              <Label>Password</Label>
+              <input onChange={handlePassChange} type="password" value={password} placeholder="*********" />
+            </Form.Field>
+            <Button onClick={handleLogin}>Log In</Button>
+            <Button as={NavLink} exact to="/Signup"> Sign up</Button>
+          </Form>
+        </div>
       </div>
     </>
   );

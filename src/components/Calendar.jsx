@@ -38,28 +38,6 @@ class Calender extends React.Component {
                     iconPosition="left"
                     onChange={this.handleChange}
                 />
-                {/*<TimeInput*/}
-                {/*    name="time"*/}
-                {/*    placeholder="Time"*/}
-                {/*    value={this.state.time}*/}
-                {/*    iconPosition="left"*/}
-                {/*    onChange={this.handleChange}*/}
-                {/*/>*/}
-                {/*<DateTimeInput*/}
-                {/*    name="dateTime"*/}
-                {/*    placeholder="Date Time"*/}
-                {/*    value={this.state.dateTime}*/}
-                {/*    iconPosition="left"*/}
-                {/*    onChange={this.handleChange}*/}
-                {/*/>*/}
-                {/*<DatesRangeInput*/}
-                {/*    name="datesRange"*/}
-                {/*    placeholder="From - To"*/}
-                {/*    value={this.state.datesRange}*/}
-                {/*    iconPosition="left"*/}
-                {/*    onChange={this.handleChange}*/}
-                {/*/>*/}
-
             </Form>
         );
     }

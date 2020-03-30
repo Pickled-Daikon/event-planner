@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
-import { Header, Icon, Button } from 'semantic-ui-react';
+import {
+  Header, Menu, Icon,
+} from 'semantic-ui-react';
 import { setJwtToken } from '../api/jwt';
-import '../style.css';
+import '../css/style.css';
 
 function NavBar() {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
@@ -13,19 +15,28 @@ function NavBar() {
   };
 
   if (!isLoggedIn) {
-    return <Redirect to={'../'} />
+    return <Redirect to="../" />;
   }
 
+
   return (
-    <div className="ui borderless topmenu menu">
-      <Header as="h3" className="content">
-        <Icon name="calendar" size="large" />
-        Daikon Calendar
-      </Header>
-      <Button floated="right" onClick={handleLogout}>
-        Logout
-      </Button>
-    </div>
+    <>
+      <Menu className="navBarStyle" borderless color="black">
+        <Menu.Item>
+          <Icon name="calendar" size="big" />
+        </Menu.Item>
+        <Menu.Item className="contentNavBar">
+          <Header as="h3">
+            Daikon Calendar
+          </Header>
+        </Menu.Item>
+        <Menu.Menu position="right" className="logoutButton">
+          <Menu.Item onClick={handleLogout}>
+              <Header as="h3">Logout</Header>
+          </Menu.Item>
+        </Menu.Menu>
+      </Menu>
+    </>
   );
 }
 

@@ -1,0 +1,73 @@
+.navBarStyle {
+    max-height: 50px;
+}
+
+.contentNavBar {
+    margin-right: 20px;
+    transform: translate(-20%);
+}
+
+.calendarShift
+{
+    padding-top: 64px;
+}
+
+.signUpStyle
+{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -80%);
+}
+
+
+.ui.header {
+    margin-left: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.ui.grid {
+    padding-left: 20px;
+}
+
+.ui.row.one {
+    padding-top: 70px;
+}
+
+.loginStyle {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+}
+
+.loginInputStyle
+{
+    background-color: black;
+}
+
+.headerPic
+{
+    margin-bottom: 10px;
+}
+
+
+
+.headerStyle
+{
+    transform: translate(0%,300%);
+    text-align: center;
+    margin-top: 50px;
+}
+
+.background
+{
+    background: url("../images/background.jpeg") no-repeat center center fixed;
+    height: 100%;
+    background-size: cover;
+    padding-bottom: 60%;
+    opacity: 0.9 !important;
+
+}
