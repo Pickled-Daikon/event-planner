@@ -1,4 +1,11 @@
-import { SET_LOGIN_ERROR_MSG, SET_LOGIN_STATUS, SET_USER, UNSET_USER } from '../action-types/user';
+import {
+  SET_LOGIN_ERROR_MSG,
+  SET_LOGIN_STATUS,
+  SET_USER,
+  UNSET_USER,
+  SET_CREATE_USER_STATUS,
+  SET_CREATE_USER_ERROR_MSG,
+} from '../action-types/user';
 
 export function setUser(UserObj) {
   return {
@@ -26,3 +33,16 @@ export function setLoginErrorMsg(errorMsg) {
   };
 }
 
+export function setCreateUserStatus(status) {
+  return {
+    type: SET_CREATE_USER_STATUS,
+    payload: status,
+  };
+}
+
+export function setCreateUserErrorMsg(errorMsg) {
+  return {
+    type: SET_CREATE_USER_ERROR_MSG,
+    payload: errorMsg,
+  };
+}

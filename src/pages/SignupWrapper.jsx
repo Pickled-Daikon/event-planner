@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 
-import { createUser } from '../api/users';
+import createUserRequest from '../api/users/createUser';
 import { setJwtToken } from '../api/jwt';
 import '../css/style.css';
 
@@ -94,16 +94,13 @@ function fieldErrorCheck(fieldValues) {
     return ERROR_MSGS.PASSWORD_TOO_LONG;
   }
   if (!pw.match(PASSWORD_SPECIAL_WC)) {
-    console.log('special');
     return ERROR_MSGS.PASSWORD_MISSING_CHARS;
   }
   if (!pw.match(PASSWORD_CAPITAL_WC)) {
-    console.log('capital');
 
     return ERROR_MSGS.PASSWORD_MISSING_CHARS;
   }
   if (!pw.match(PASSWORD_NUMBER_WC)) {
-    console.log('pw');
     return ERROR_MSGS.PASSWORD_MISSING_CHARS;
   }
   return null;
@@ -128,17 +125,12 @@ function SignupWrapper() {
       setErrorMsg(fieldError);
       return;
     }
-    createUser({
+    createUserRequest({
       firstName,
       lastName,
       email,
       password,
       isAdmin: false,
-    }).then((token) => {
-      setJwtToken(token);
-      setIsLoggedIn(true);
-    }).catch(() => {
-      setErrorMsg(ERROR_MSGS.SERVER_ERROR);
     });
   };
 
