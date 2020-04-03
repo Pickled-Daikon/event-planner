@@ -1,4 +1,4 @@
-import {SET_LOGIN_ERROR_MSG, SET_LOGIN_STATUS, SET_USER, UNSET_USER} from '../action-types/user';
+import { SET_LOGIN_ERROR_MSG, SET_LOGIN_STATUS, SET_USER, UNSET_USER } from '../action-types/user';
 
 export function setUser(UserObj) {
   return {
