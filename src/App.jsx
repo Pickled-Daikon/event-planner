@@ -4,10 +4,13 @@ import { Provider } from 'react-redux';
 import MainCalendar from './pages/MainCalendarWrapper';
 import Login from './pages/LoginWrapper';
 import Signup from './pages/SignupWrapper';
+import loginWithJwt from './api/users/loginWithJwt';
 
 import store from './store';
 
+// attempt to login w/ local storage
 
+loginWithJwt();
 function App() {
   return (
     <Provider store={store}>

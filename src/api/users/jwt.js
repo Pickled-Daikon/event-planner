@@ -8,7 +8,11 @@ export function setJwtToken(token) {
 
 export function getJwtToken() {
   // eslint-disable-next-line no-undef
-  return localStorage.getItem(JWT_TOKEN);
+  const token = localStorage.getItem(JWT_TOKEN);
+  if (token === 'null' || !token) {
+    return null;
+  }
+  return token;
 }
 
 
