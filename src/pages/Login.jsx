@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+
 import {
   Form,
   Button,
@@ -20,48 +22,15 @@ import {
   Redirect,
 } from 'react-router-dom';
 
-const ERROR_MSGS = {
-  SERVER_ERROR: 'We\'re sorry, our servers are not responding.',
-  NO_USER_FOUND: 'Login failed: Incorrect email/password',
-};
 
-function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [errorMsg, setErrorMsg] = useState(null);
-
-  useEffect(() => {
-    verifyToken()
-      .then(() => {
-        setIsLoggedIn(true);
-      })
-      .catch(() => {});
-  }, []);
-
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const handlePassChange = (e) => {
-    setPassword(e.target.value);
-  };
-
-  const handleLogin = () => {
-    login(email, password)
-      .then((jwtToken) => {
-        setJwtToken(jwtToken);
-        setIsLoggedIn(true);
-      }).catch((e) => {
-        if (e === ERRORS[ERROR_TYPES.NO_USER_FOUND]) {
-          setErrorMsg(ERROR_MSGS.NO_USER_FOUND);
-        }
-      });
-  };
-  if (isLoggedIn) {
-    return <Redirect to="../dashboard" />;
-  }
-
+function Login({
+  errorMsg,
+  email,
+  handleEmailChange,
+  password,
+  handlePassChange,
+  handleLogin,
+               }) {
   return (
     <>
       <div className="background">
@@ -98,5 +67,15 @@ function Login() {
     </>
   );
 }
+
+Login.propTypes = {
+  errorMsg: PropTypes.string.isRequired,
+  email: PropTypes.string.isRequired,
+  handleEmailChange: PropTypes.func.isRequired,
+  password: PropTypes.string.isRequired,
+  handlePassChange: PropTypes.func.isRequired,
+  handleLogin: PropTypes.func.isRequired,
+};
+
 
 export default Login;
