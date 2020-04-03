@@ -13,12 +13,11 @@ import '../css/style.css';
 
 // eslint-disable-next-line react/prop-types
 function MainCalendar({
- createStatus,
- currentMsg,
- setCreateStatusHandler,
+  createStatus,
+  currentMsg,
+  setCreateStatusHandler,
   setErrorMsg,
 }) {
-
   return (
     <>
       <div className="background">

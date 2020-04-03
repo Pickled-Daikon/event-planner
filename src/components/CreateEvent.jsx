@@ -1,5 +1,5 @@
 import React from 'react';
-import {Form, Button, TextArea, Header, Message, Grid} from 'semantic-ui-react';
+import {Form, Button, TextArea, Header} from 'semantic-ui-react';
 import createICS from "../api/createics";
 
 import {
@@ -173,7 +173,7 @@ class CreateEvent extends React.Component {
                 this.props.setCreateSuccess(CREATE_EVENT_STATUSES.SUCCESS);
                 downloadIcsFile(newEvent);
             }).catch(() => {
-                this.props.setErrMsg(fieldError)
+                this.props.setErrMsg(fieldError);
                 this.props.setCreateSuccess(CREATE_EVENT_STATUSES.ERROR);
         })
 
