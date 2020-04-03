@@ -11,6 +11,8 @@ import { CREATE_EVENT_URL } from './constants';
  * }>}
  */
 async function createEvent(eventObj) {
+  console.log(eventObj);
+  return;
   let jsonResp;
   try {
     const resp = await fetch(CREATE_EVENT_URL, {

@@ -6,7 +6,7 @@ import {
   Message,
 } from 'semantic-ui-react';
 import Calendar from '../components/Calendar';
-import CreateEvent from '../components/CreateEventWrapper';
+import CreateEvent from '../components/CreateEvent';
 import NavBar from '../components/NavBar';
 import '../css/style.css';
 

@@ -1,4 +1,4 @@
-import {SET_CREATE_EVENT_ERROR_MSG, SET_CREATE_EVENT_STATUS, SET_CREATED_EVENT} from '../action-types/events';
+import { SET_CREATE_EVENT_ERROR_MSG, SET_CREATE_EVENT_STATUS, SET_CREATED_EVENT } from '../action-types/events';
 
 const defaultState = {
   createEventStatus: null,
