@@ -37,9 +37,7 @@ function CreateEventWrapper() {
 
     const eventObj = buildEventObj(eventFields);
 
-    createEventRequest({
-      eventObj,
-    });
+    createEventRequest(eventObj);
   };
 
   return (

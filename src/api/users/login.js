@@ -1,7 +1,7 @@
 import { LOGIN_ERRORS, LOGIN_STATUSES, LOGIN_URL } from './constants';
 import store from '../../store';
 import { setLoginStatus, setLoginErrorMsg, setUser } from '../../action-creators/user';
-import { decodeToken } from './jwt';
+import {decodeToken, setJwtToken} from './jwt';
 
 export default async function login(email, password) {
   let jsonResp;
@@ -57,4 +57,5 @@ export default async function login(email, password) {
   }));
   store.dispatch(setLoginErrorMsg(null));
   store.dispatch(setLoginStatus(LOGIN_STATUSES.SUCCESS));
+  setJwtToken(jwtToken);
 }

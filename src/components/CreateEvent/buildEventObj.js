@@ -10,12 +10,14 @@ export default function buildEventObj(eventFields) {
   endDateObj.setHours(eventFields.endTime.slice(0, 2));
   endDateObj.setMinutes(eventFields.endTime.slice(3, 5));
 
-
   const startDateStr = startDateObj.toString();
   const endDateStr = endDateObj.toString();
 
   return {
-    ...eventFields,
+    name: eventFields.name,
+    userId: eventFields.userId,
+    description: eventFields.description,
+    location: eventFields.location,
     startDateTime: startDateStr,
     endDateTime: endDateStr,
   };
