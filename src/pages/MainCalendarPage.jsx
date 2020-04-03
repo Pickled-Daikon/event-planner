@@ -5,6 +5,7 @@ import {
   Button,
   Header,
   Message,
+  Container
 } from 'semantic-ui-react';
 import Calendar from '../components/Calendar';
 import CreateEvent, { CREATE_EVENT_STATUSES, ERROR_MESSAGES } from '../components/CreateEvent';
@@ -22,6 +23,7 @@ function MainCalendarPage() {
   const [createStatus, setCreateStatus] = useState(CREATE_EVENT_STATUSES.DEFAULT);
   // hooks
   const [errorMsg, setErrorMsg] = useState(null);
+  // eslint-disable-next-line max-len
   const currentMsg = createStatus === CREATE_EVENT_STATUSES.ERROR ? errorMsg : MESSAGES.CREATE_SUCCESS;
 
 
@@ -51,34 +53,32 @@ function MainCalendarPage() {
   return (
     <>
       <div className="background">
-      <NavBar/>
-      <Message
-        hidden={createStatus === CREATE_EVENT_STATUSES.DEFAULT}
-        error={createStatus === CREATE_EVENT_STATUSES.ERROR}
-        success={createStatus === CREATE_EVENT_STATUSES.SUCCESS}
-        content={currentMsg}
-      />
-      <Grid>
-        {/*<Grid.Row>*/}
-        {/*  <Grid.Column width={7}>*/}
-        {/*  </Grid.Column>*/}
-        {/*  <Grid.Column width={9}>*/}
-        {/*    <Header as='h1'>Schedule</Header>*/}
-        {/*  </Grid.Column>*/}
-
-        {/*</Grid.Row>*/}
-
-        <Grid.Row>
-          <Grid.Column width={3}>
+        <NavBar />
+        <Message
+          hidden={createStatus === CREATE_EVENT_STATUSES.DEFAULT}
+          error={createStatus === CREATE_EVENT_STATUSES.ERROR}
+          success={createStatus === CREATE_EVENT_STATUSES.SUCCESS}
+          content={currentMsg}
+        />
+        <Grid centered>
+          <Grid.Column width={4}>
             <CreateEvent setCreateSuccess={setCreateStatusHandler} setErrMsg={setErrorMsg}>
               <Icon name="add" />
             </CreateEvent>
           </Grid.Column>
-          <Grid.Column width={9} className="calendarShift">
+          <Grid.Column
+            width={10}
+            style={
+              {
+                marginTop: '50px',
+                marginRight: '10px',
+                marginLeft: '10px',
+              }
+            }
+          >
             <Calendar />
           </Grid.Column>
-        </Grid.Row>
-      </Grid>
+        </Grid>
       </div>
     </>
   );

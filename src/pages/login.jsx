@@ -13,9 +13,7 @@ import {
   ERROR_TYPES,
   ERRORS,
 } from '../api/users';
-
 import { setJwtToken } from '../api/jwt';
-
 import '../css/style.css';
 import {
   NavLink,
@@ -63,7 +61,6 @@ function Login() {
   if (isLoggedIn) {
     return <Redirect to="../dashboard" />;
   }
-
 
   return (
     <>

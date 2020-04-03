@@ -12,7 +12,6 @@ import {
 class Calender extends React.Component {
     constructor(props) {
         super(props);
-
         this.state = {
             date: '',
             time: '',
