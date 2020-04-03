@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 import {
   Form,
-  Container,
   Segment,
   Grid,
   Header,
@@ -27,7 +26,6 @@ function Signup({
   return (
     <>
       <div className="background">
-        <Container className="signUpStyle">
           <Grid textAlign="center" verticalAlign="middle" centered columns={2}>
             <Grid.Column>
               <Header as="h2" textAlign="center">
@@ -95,7 +93,6 @@ function Signup({
               </Form>
             </Grid.Column>
           </Grid>
-        </Container>
       </div>
     </>
   );

@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
@@ -14,7 +15,7 @@ import '../css/style.css';
 import {
   NavLink,
 } from 'react-router-dom';
-
+import Grid from 'semantic-ui-react/dist/commonjs/collections/Grid';
 
 function Login({
   errorMsg,
@@ -24,38 +25,52 @@ function Login({
   handlePassChange,
   handleLogin,
 }) {
+  /* will fix Image-header later to be an actual logo + header */
   return (
     <>
       <div className="background">
-        <div>
-          <Header as="h1" className="headerStyle">
-            <Image src="https://www.freeiconspng.com/uploads/letter-d-icon-png-28.png" className="headerPic" />
-            aikon Calendar
-          </Header>
-        </div>
-        <div className="loginStyle">
-          {
-          errorMsg
-            ? (
-              <Message error>
-                {errorMsg}
-              </Message>
-            )
-            : null
-        }
-          <Form size="small" key="small">
-            <Form.Field width={20}>
-              <Label>Email</Label>
-              <input inverted onChange={handleEmailChange} value={email} placeholder="example@hotmail.com" className="loginInputStyle" />
-            </Form.Field>
-            <Form.Field width={20}>
-              <Label>Password</Label>
-              <input onChange={handlePassChange} type="password" value={password} placeholder="*********" />
-            </Form.Field>
-            <Button onClick={handleLogin}>Log In</Button>
-            <Button as={NavLink} exact to="/Signup"> Sign up</Button>
-          </Form>
-        </div>
+        <Grid centered columns={1}>
+          <Grid.Row style={{ marginTop: '100px' }}>
+            <Grid.Column>
+              <Header as="h1" textAlign="center">
+                <Image src="https://www.freeiconspng.com/uploads/letter-d-icon-png-28.png" centered />
+                aikon Calendar
+              </Header>
+            </Grid.Column>
+          </Grid.Row>
+          <Grid.Row>
+            {
+              errorMsg ? (
+                <Message error>
+                  {errorMsg}
+                </Message>
+              ) : null
+            }
+            <Form size="medium" key="small">
+              <Form.Field width={20}>
+                <Label style={{ marginBottom: '8px' }}>Email</Label>
+                <input
+                  onChange={handleEmailChange}
+                  value={email}
+                  placeholder="example@hotmail.com"
+                  className="loginInputStyle"
+                  style={{ marginBottom: '10px' }}
+                />
+              </Form.Field>
+              <Form.Field width={20}>
+                <Label style={{ marginBottom: '8px' }}>Password</Label>
+                <input
+                  onChange={handlePassChange}
+                  type="password"
+                  value={password}
+                  placeholder="*********"
+                />
+              </Form.Field>
+              <Button onClick={handleLogin}>Log In</Button>
+              <Button as={NavLink} exact to="/Signup"> Sign up</Button>
+            </Form>
+          </Grid.Row>
+        </Grid>
       </div>
     </>
   );

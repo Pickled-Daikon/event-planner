@@ -1,4 +1,4 @@
-import {JWT_TOKEN} from './constants';
+import { JWT_TOKEN } from './constants';
 
 export function setJwtToken(token) {
   localStorage.setItem(JWT_TOKEN, token);
