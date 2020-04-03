@@ -9,7 +9,7 @@ import {
   // DatesRangeInput
 } from 'semantic-ui-calendar-react';
 
-class Calender extends React.Component {
+class Calendar extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -42,4 +42,4 @@ class Calender extends React.Component {
     }
 }
 
-export default Calender;
+export default Calendar;

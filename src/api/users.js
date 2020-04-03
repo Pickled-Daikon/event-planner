@@ -1,9 +1,11 @@
 import { API_ROOT_URL } from './constants';
 import { getJwtToken, setJwtToken } from './jwt';
+import store from '../store';
 
 export const LOGIN_URL = `${API_ROOT_URL}/users/login`;
 export const CREATE_USER_URL = `${API_ROOT_URL}/users/create`;
 export const VERIFY_TOKEN_URL = `${API_ROOT_URL}/users/verify`;
+
 
 
 // todo: move Errors to be shared between client/server
@@ -34,6 +36,7 @@ export const ERRORS = {
 
 async function login(email, password) {
   let jsonResp;
+
   try {
     const resp = await fetch(LOGIN_URL, {
       method: 'POST',
@@ -41,8 +44,10 @@ async function login(email, password) {
         'content-type': 'application/json',
       },
       body: JSON.stringify({
-        email,
-        password,
+        user: {
+          email,
+          password,
+        },
       }),
     });
     jsonResp = await resp.json();
@@ -51,13 +56,8 @@ async function login(email, password) {
   }
 
   if (jsonResp.error) {
-    throw ERRORS[ERROR_TYPES[jsonResp.error]];
-  }
-
-  if (!jsonResp.jwtToken) {
     throw ERRORS[ERROR_TYPES.UNDEFINED];
   }
-  return jsonResp.jwtToken;
 }
 
 async function createUser(userObj) {

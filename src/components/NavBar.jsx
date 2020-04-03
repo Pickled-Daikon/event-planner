@@ -1,24 +1,14 @@
-import React, { useState } from 'react';
-import { Redirect } from 'react-router-dom';
+import React from 'react';
 import {
-  Header, Menu, Icon,
+  Header,
+  Menu,
+  Icon,
 } from 'semantic-ui-react';
-import { setJwtToken } from '../api/jwt';
+
 import '../css/style.css';
+import logout from '../api/users/logout';
 
 function NavBar() {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
-
-  const handleLogout = () => {
-    setJwtToken(null);
-    setIsLoggedIn(false);
-  };
-
-  if (!isLoggedIn) {
-    return <Redirect to="../" />;
-  }
-
-
   return (
     <>
       <Menu className="navBarStyle" borderless color="black">
@@ -31,7 +21,7 @@ function NavBar() {
           </Header>
         </Menu.Item>
         <Menu.Menu position="right" className="logoutButton">
-          <Menu.Item onClick={handleLogout}>
+          <Menu.Item onClick={logout}>
               <Header as="h3">Logout</Header>
           </Menu.Item>
         </Menu.Menu>

@@ -1,17 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import {
   Redirect,
 } from 'react-router-dom';
+
 import Login from './Login';
 
-import {
-  login,
-  verifyToken,
-  ERROR_TYPES,
-  ERRORS,
-} from '../api/users';
-import { setJwtToken } from '../api/jwt';
+import loginRequest from '../api/users/login';
+
 import '../css/style.css';
+import { LOGIN_STATUSES } from "../api/users/constants";
 
 
 const ERROR_MSGS = {
@@ -22,16 +20,9 @@ const ERROR_MSGS = {
 function LoginWrapper() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [errorMsg, setErrorMsg] = useState(null);
 
-  useEffect(() => {
-    verifyToken()
-      .then(() => {
-        setIsLoggedIn(true);
-      })
-      .catch(() => {});
-  }, []);
+  const userObj = useSelector((state) => state.user);
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -42,17 +33,10 @@ function LoginWrapper() {
   };
 
   const handleLogin = () => {
-    login(email, password)
-      .then((jwtToken) => {
-        setJwtToken(jwtToken);
-        setIsLoggedIn(true);
-      }).catch((e) => {
-        if (e === ERRORS[ERROR_TYPES.NO_USER_FOUND]) {
-          setErrorMsg(ERROR_MSGS.NO_USER_FOUND);
-        }
-      });
+    loginRequest(email, password);
   };
-  if (isLoggedIn) {
+
+  if (userObj.loginStatus === LOGIN_STATUSES.SUCCESS && userObj.id) {
     return <Redirect to="../dashboard" />;
   }
 

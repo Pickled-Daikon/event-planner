@@ -9,17 +9,10 @@ import {
   Message,
   Image,
 } from 'semantic-ui-react';
-import {
-  login,
-  verifyToken,
-  ERROR_TYPES,
-  ERRORS,
-} from '../api/users';
-import { setJwtToken } from '../api/jwt';
 import '../css/style.css';
+
 import {
   NavLink,
-  Redirect,
 } from 'react-router-dom';
 
 
@@ -30,7 +23,7 @@ function Login({
   password,
   handlePassChange,
   handleLogin,
-               }) {
+}) {
   return (
     <>
       <div className="background">
