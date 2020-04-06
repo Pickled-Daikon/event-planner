@@ -25,6 +25,7 @@ export default async function login(email, password) {
   } catch (e) {
     store.dispatch(setLoginStatus(LOGIN_STATUSES.FAILED));
     store.dispatch(setLoginErrorMsg(LOGIN_ERRORS));
+    return;
   }
 
   if (jsonResp.error) {
