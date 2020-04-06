@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 
 import createUserRequest from '../api/users/createUser';
-import { setJwtToken } from '../api/jwt';
 import '../css/style.css';
 
 import Signup from './Signup';

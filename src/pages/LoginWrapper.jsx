@@ -20,7 +20,7 @@ const ERROR_MSGS = {
 function LoginWrapper() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [errorMsg, setErrorMsg] = useState(null);
+  const [errorMsg, setErrorMsg] = useState('');
 
   const userObj = useSelector((state) => state.user);
 
