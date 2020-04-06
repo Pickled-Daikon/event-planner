@@ -26,10 +26,10 @@
     "semantic-ui-react": "^0.88.2"
   },
   "scripts": {
-    "start-client-dev": "react-scripts start",
+    "dev": "react-scripts start",
     "start-server": "node server.js",
     "start-server-dev": "nodemon server.js",
-    "build-client": "react-scripts build",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
