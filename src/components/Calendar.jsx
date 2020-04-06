@@ -1,6 +1,4 @@
-
-import React, {useState} from 'react';
-import { Form } from 'semantic-ui-react';
+import React, { useState } from 'react';
 import { DateInput } from 'semantic-ui-calendar-react';
 
 const defaultDate = new Date().getDate().toString();
