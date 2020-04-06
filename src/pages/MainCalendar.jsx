@@ -1,9 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {
   Grid,
   Icon,
-  Message,
 } from 'semantic-ui-react';
 import Calendar from '../components/Calendar';
 import CreateEvent from '../components/CreateEvent';

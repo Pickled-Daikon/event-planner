@@ -97,18 +97,6 @@ function Signup({
     </>
   );
 }
-/*
-errorMsg,
-  handleSignup,
-  firstName,
-  firstNameChange,
-  lastName,
-  lastNameChange,
-  email,
-  emailChange,
-  password,
-  passwordChange,
-*/
 
 Signup.propTypes = {
   handleSignup: PropTypes.func.isRequired,

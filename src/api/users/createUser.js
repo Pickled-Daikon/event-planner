@@ -1,6 +1,6 @@
 import { CREATE_USER_ERRORS, CREATE_USER_STATUSES, CREATE_USER_URL } from './constants';
 import store from '../../store';
-import { setCreateUserErrorMsg, setCreateUserStatus } from '../../action-creators/user';
+import { setCreateUserErrorMsg, setCreateUserStatus } from '../../store/action-creators/user';
 
 async function createUser(userObj) {
   let jsonResp;

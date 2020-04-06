@@ -1,45 +1,20 @@
+import React, { useState } from 'react';
+import { DateInput } from 'semantic-ui-calendar-react';
 
-import React from 'react';
-import { Form } from 'semantic-ui-react';
-import {
-    DateInput,
-  // DateInput,
-  // TimeInput,
-   //DateTimeInput
-  // DatesRangeInput
-} from 'semantic-ui-calendar-react';
+const defaultDate = new Date().getDate().toString();
 
-class Calendar extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            date: '',
-            time: '',
-            dateTime: '',
-            datesRange: ''
-        };
-    }
-
-    handleChange = (event, {name, value}) => {
-        if (this.state.hasOwnProperty(name)) {
-            this.setState({ [name]: value });
-        }
-    };
-
-    render() {
-        return (
-            <Form>
-                <DateInput
-                    inline
-                    name="date"
-                    placeholder="Date"
-                    value={this.state.date}
-                    iconPosition="left"
-                    onChange={this.handleChange}
-                />
-            </Form>
-        );
-    }
+function Calendar() {
+  const [date, setDate] = useState(defaultDate);
+  return (
+    <DateInput
+      inline
+      name="date"
+      placeholder="Date"
+      value={date}
+      iconPosition="left"
+      onChange={(event, { value }) => setDate(value)}
+    />
+  );
 }
 
 export default Calendar;

@@ -1,3 +1,11 @@
+/**
+ * function used to turn the fields from the
+ * create event form into an eventObject that
+ * can be used to call the createEvent api method.
+ *
+ * @param eventFields
+ * @returns {{startDateTime: *, name: *, description: *, location: *, endDateTime: *, userId: *}}
+ */
 export default function buildEventObj(eventFields) {
   const dateArr = eventFields.date.split('-');
   const newDate = [dateArr[1], dateArr[0], dateArr[2]].join('-');

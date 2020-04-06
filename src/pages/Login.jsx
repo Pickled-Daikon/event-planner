@@ -1,5 +1,4 @@
-// eslint-disable-next-line no-unused-vars
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import {
@@ -9,13 +8,14 @@ import {
   Header,
   Message,
   Image,
+  Grid,
 } from 'semantic-ui-react';
 import '../css/style.css';
 
 import {
   NavLink,
 } from 'react-router-dom';
-import Grid from 'semantic-ui-react/dist/commonjs/collections/Grid';
+
 
 function Login({
   errorMsg,

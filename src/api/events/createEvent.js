@@ -1,7 +1,7 @@
 import { CREATE_EVENT_URL, CREATE_EVENT_STATUSES, CREATE_EVENT_ERRORS } from './constants';
 import { getJwtToken } from '../users/jwt';
 import store from '../../store';
-import { setCreatedEvent, setCreateEventErrorMsg, setCreateEventStatus } from '../../action-creators/events';
+import { setCreatedEvent, setCreateEventErrorMsg, setCreateEventStatus } from '../../store/action-creators/events';
 
 /**
  *

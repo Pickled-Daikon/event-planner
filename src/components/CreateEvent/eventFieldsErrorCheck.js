@@ -3,8 +3,10 @@ import { ERROR_MESSAGES, MAX_NAME_LEN, MAX_DESCRIPTION_LEN } from './constants';
 const ALPHA_WC = /^[a-zA-Z]+$/;
 
 /**
- *
+ * function used to detect errors from the fields
+ * in the createEvent form, before calling the createEvent api method.
  * @param {{name, description, location, date, startTime, endTime}} fieldValues
+ * @return {string|null} - returns null if no error found.
  */
 export default function fieldErrorCheck(fieldValues) {
   // renamed consts since consistent names is causing problems w/ react hooks

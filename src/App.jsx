@@ -1,5 +1,12 @@
+/**
+ * Main entry point of application.
+ * Contains the routing logic for app.
+ * Also initializes the redux store.
+*/
+
 import React from 'react';
 import { Route, HashRouter as Router, Switch } from 'react-router-dom';
+
 import { Provider } from 'react-redux';
 import MainCalendar from './pages/MainCalendarWrapper';
 import Login from './pages/LoginWrapper';
@@ -8,9 +15,11 @@ import loginWithJwt from './api/users/loginWithJwt';
 
 import store from './store';
 
-// attempt to login w/ local storage
-
+// when app first loads, attempt to login with
+// jwt token saved in local storage.
 loginWithJwt();
+
+
 function App() {
   return (
     <Provider store={store}>
