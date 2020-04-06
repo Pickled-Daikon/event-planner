@@ -1,6 +1,6 @@
 import { decodeToken, getJwtToken } from './jwt';
 import store from '../../store';
-import { setLoginStatus, setUser } from '../../action-creators/user';
+import { setLoginStatus, setUser } from '../../store/action-creators/user';
 import { LOGIN_STATUSES } from './constants';
 
 export default function loginWithJwt() {

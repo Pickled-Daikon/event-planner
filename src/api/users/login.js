@@ -1,6 +1,6 @@
 import { LOGIN_ERRORS, LOGIN_STATUSES, LOGIN_URL } from './constants';
 import store from '../../store';
-import { setLoginStatus, setLoginErrorMsg, setUser } from '../../action-creators/user';
+import { setLoginStatus, setLoginErrorMsg, setUser } from '../../store/action-creators/user';
 import {decodeToken, setJwtToken} from './jwt';
 
 export default async function login(email, password) {

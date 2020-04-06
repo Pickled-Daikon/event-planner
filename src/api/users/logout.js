@@ -1,5 +1,5 @@
 import store from '../../store';
-import { unsetUser } from '../../action-creators/user';
+import { unsetUser } from '../../store/action-creators/user';
 import { setJwtToken } from "./jwt";
 
 function logout() {
