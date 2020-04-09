@@ -18,7 +18,8 @@ import {
 
 
 function Login({
-  errorMsg,
+  // eslint-disable-next-line react/prop-types
+  loginErrorMsg,
   email,
   handleEmailChange,
   password,
@@ -40,9 +41,9 @@ function Login({
           </Grid.Row>
           <Grid.Row>
             {
-              errorMsg ? (
-                <Message error>
-                  {errorMsg}
+              loginErrorMsg ? (
+                <Message negative>
+                  {loginErrorMsg}
                 </Message>
               ) : null
             }

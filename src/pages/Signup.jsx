@@ -12,7 +12,7 @@ import {
 import '../css/style.css';
 
 function Signup({
-  errorMsg,
+  createUserErr,
   handleSignup,
   firstName,
   firstNameChange,
@@ -31,7 +31,7 @@ function Signup({
               <Header as="h2" textAlign="center">
                 Register your account
               </Header>
-              {errorMsg ? <Message error>{errorMsg}</Message> : null}
+              {createUserErr ? <Message error>{createUserErr}</Message> : null}
               <Form onSubmit={handleSignup}>
                 <Segment stacked>
                   <Form.Input

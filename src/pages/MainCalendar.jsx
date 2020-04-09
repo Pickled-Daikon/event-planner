@@ -12,13 +12,14 @@ import '../css/style.css';
 
 // eslint-disable-next-line react/prop-types
 function MainCalendar({
-    errorMsg
+  // eslint-disable-next-line react/prop-types
+  errorMsg,
 }) {
   return (
     <>
       <div className="background">
         <NavBar />
-        <Message>{errorMsg}</Message>
+        {errorMsg ? <Message negative>{errorMsg}</Message> : null}
         <Grid centered>
           <Grid.Column width={4}>
             <CreateEvent>

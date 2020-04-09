@@ -5,6 +5,7 @@ import createUserRequest from '../api/users/createUser';
 import '../css/style.css';
 
 import Signup from './Signup';
+import { useSelector } from 'react-redux';
 
 const ALPHA_WC = /^[a-zA-Z]+$/;
 
@@ -96,7 +97,6 @@ function fieldErrorCheck(fieldValues) {
     return ERROR_MSGS.PASSWORD_MISSING_CHARS;
   }
   if (!pw.match(PASSWORD_CAPITAL_WC)) {
-
     return ERROR_MSGS.PASSWORD_MISSING_CHARS;
   }
   if (!pw.match(PASSWORD_NUMBER_WC)) {
@@ -112,6 +112,8 @@ function SignupWrapper() {
   const [password, setPassword] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [errorMsg, setErrorMsg] = useState(null);
+  const createUserErr = useSelector((state) => state.user.createUserErrorMsg);
+
 
   const handleSignup = () => {
     const fieldError = fieldErrorCheck({
@@ -163,6 +165,7 @@ function SignupWrapper() {
   }
   return (
     <Signup
+      createUserErr={createUserErr}
       email={email}
       emailChange={emailChange}
       errorMsg={errorMsg}
