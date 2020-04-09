@@ -24,27 +24,27 @@ export default async function login(email, password) {
     jsonResp = await resp.json();
   } catch (e) {
     store.dispatch(setLoginStatus(LOGIN_STATUSES.FAILED));
-    store.dispatch(setLoginErrorMsg(LOGIN_ERRORS));
+    store.dispatch(setLoginErrorMsg(LOGIN_ERRORS.SERVER_ERROR));
     return;
   }
 
   if (jsonResp.error) {
     store.dispatch(setLoginStatus(LOGIN_STATUSES.FAILED));
-    store.dispatch(setLoginErrorMsg(LOGIN_ERRORS.UNKNOWN_SERVER_ERROR));
+    store.dispatch(setLoginErrorMsg(LOGIN_ERRORS.SERVER_ERROR));
     return;
   }
 
   const jwtToken = jsonResp.token;
   if (!jwtToken) {
     store.dispatch(setLoginStatus(LOGIN_STATUSES.FAILED));
-    store.dispatch(setLoginErrorMsg(LOGIN_ERRORS.UNKNOWN_SERVER_ERROR));
+    store.dispatch(setLoginErrorMsg(LOGIN_ERRORS.SERVER_ERROR));
     return;
   }
 
   const decodedToken = decodeToken(jwtToken);
   if (!decodedToken) {
     store.dispatch(setLoginStatus(LOGIN_STATUSES.FAILED));
-    store.dispatch(setLoginErrorMsg(LOGIN_ERRORS.UNKNOWN_SERVER_ERROR));
+    store.dispatch(setLoginErrorMsg(LOGIN_ERRORS.SERVER_ERROR));
     return;
   }
 
