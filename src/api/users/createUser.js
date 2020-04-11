@@ -1,6 +1,16 @@
-import { CREATE_USER_ERRORS, CREATE_USER_STATUSES, CREATE_USER_URL } from './constants';
+import {
+  CREATE_USER_STATUSES,
+  CREATE_USER_URL,
+  CREATE_USER_ERROR_MESSAGES,
+  USER_SERVER_ERRORS, LOGIN_STATUSES, LOGIN_ERROR_MESSAGE,
+} from './constants';
 import store from '../../store';
-import { setCreateUserErrorMsg, setCreateUserStatus } from '../../store/action-creators/user';
+import {
+  setCreateUserErrorMsg,
+  setCreateUserStatus,
+  setLoginErrorMsg,
+  setLoginStatus,
+} from '../../store/action-creators/user';
 
 async function createUser(userObj) {
   let jsonResp;
@@ -16,18 +26,27 @@ async function createUser(userObj) {
     jsonResp = await resp.json();
   } catch (e) {
     store.dispatch(setCreateUserStatus(CREATE_USER_STATUSES.FAILED));
-    store.dispatch(setCreateUserErrorMsg(CREATE_USER_ERRORS.SERVER_ERROR));
+    store.dispatch(setCreateUserErrorMsg(CREATE_USER_ERROR_MESSAGES.SERVER_ERROR));
     return;
   }
   if (jsonResp.error) {
-    store.dispatch(setCreateUserStatus(CREATE_USER_STATUSES.FAILED));
-    store.dispatch(setCreateUserErrorMsg(CREATE_USER_ERRORS.SERVER_ERROR));
-    return;
+    console.log(jsonResp.error);
+    switch (jsonResp.error) {
+      case USER_SERVER_ERRORS.USER_EXISTS:
+        store.dispatch(setCreateUserStatus(CREATE_USER_STATUSES.FAILED));
+        store.dispatch(setCreateUserErrorMsg(CREATE_USER_ERROR_MESSAGES.USER_EXISTS));
+        console.log('Here..');
+        return;
+      default:
+        store.dispatch(setCreateUserStatus(CREATE_USER_STATUSES.FAILED));
+        store.dispatch(setCreateUserErrorMsg(CREATE_USER_ERROR_MESSAGES.SERVER_ERROR));
+        return;
+    }
   }
 
   if (!jsonResp.user) {
     store.dispatch(setCreateUserStatus(CREATE_USER_STATUSES.FAILED));
-    store.dispatch(setCreateUserErrorMsg(CREATE_USER_ERRORS.SERVER_ERROR));
+    store.dispatch(setCreateUserErrorMsg(CREATE_USER_ERROR_MESSAGES.SERVER_ERROR));
     return;
   }
 
