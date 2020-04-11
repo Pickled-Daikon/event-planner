@@ -17,6 +17,7 @@ function MainCalendarWrapper() {
     return <Redirect to="../" />;
   }
 
+
   return (
     <MainCalendar
       errorMsg={errorMsg}

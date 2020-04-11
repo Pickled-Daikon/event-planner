@@ -19,8 +19,14 @@ function MainCalendar({
     <>
       <div className="background">
         <NavBar />
-        {errorMsg ? <Message negative>{errorMsg}</Message> : null}
         <Grid centered>
+          <Grid.Row>
+            <Grid.Column width={4}>
+              {errorMsg ? <Message negative>{errorMsg}</Message> : null}
+            </Grid.Column>
+            <Grid.Column width={10}>
+            </Grid.Column>
+          </Grid.Row>
           <Grid.Column width={4}>
             <CreateEvent>
               <Icon name="add" />

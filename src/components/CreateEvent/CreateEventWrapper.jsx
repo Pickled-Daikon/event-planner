@@ -1,12 +1,12 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import {useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import createICS from '../../api/createics';
 import createEventRequest from '../../api/events/createEvent';
 import CreateEvent from './CreateEvent';
 import eventFieldsErrorCheck from './eventFieldsErrorCheck';
 import buildEventObj from './buildEventObj';
-import {setCreatedEvent, setCreateEventErrorMsg} from "../../store/action-creators/events";
+import { setCreatedEvent, setCreateEventErrorMsg } from '../../store/action-creators/events';
 
 const DEFAULT_EVENT_FIELDS = {
   name: '',

@@ -39,14 +39,18 @@ function Login({
               </Header>
             </Grid.Column>
           </Grid.Row>
+          <Grid.Row style={{ marginTop: '20px' }}>
+            <Grid.Column width={3}>
+              {
+                loginErrorMsg ? (
+                    <Message negative>
+                      {loginErrorMsg}
+                    </Message>
+                ) : null
+              }
+            </Grid.Column>
+          </Grid.Row>
           <Grid.Row>
-            {
-              loginErrorMsg ? (
-                <Message negative>
-                  {loginErrorMsg}
-                </Message>
-              ) : null
-            }
             <Form size="medium" key="small">
               <Form.Field width={20}>
                 <Label style={{ marginBottom: '8px' }}>Email</Label>

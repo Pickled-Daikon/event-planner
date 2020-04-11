@@ -1,4 +1,4 @@
-import { CREATE_EVENT_URL, CREATE_EVENT_STATUSES, CREATE_EVENT_ERRORS } from './constants';
+import { CREATE_EVENT_URL, CREATE_EVENT_STATUSES, CREATE_EVENT_ERRORS, CREATE_EVENT_ERROR_MESSAGES } from './constants';
 import { getJwtToken } from '../users/jwt';
 import store from '../../store';
 import { setCreatedEvent, setCreateEventErrorMsg, setCreateEventStatus } from '../../store/action-creators/events';
@@ -33,9 +33,16 @@ async function createEvent(eventObj) {
   }
 
   if (jsonResp.error) {
-    store.dispatch(setCreateEventStatus(CREATE_EVENT_STATUSES.FAILED));
-    store.dispatch(setCreateEventErrorMsg(CREATE_EVENT_ERRORS.SERVER_ERROR));
-    return;
+    switch (jsonResp.error) {
+      case CREATE_EVENT_ERRORS.BAD_EVENT_GIVEN:
+        store.dispatch(setCreateEventStatus(CREATE_EVENT_STATUSES.FAILED));
+        store.dispatch(setCreateEventErrorMsg(CREATE_EVENT_ERROR_MESSAGES.BAD_EVENT_GIVEN));
+        return;
+      default:
+        store.dispatch(setCreateEventStatus(CREATE_EVENT_STATUSES.FAILED));
+        store.dispatch(setCreateEventErrorMsg(CREATE_EVENT_ERROR_MESSAGES.SERVER_ERROR));
+        return;
+    }
   }
 
   if (!jsonResp.event) {
