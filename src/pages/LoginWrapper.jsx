@@ -23,6 +23,7 @@ function LoginWrapper() {
   const [errorMsg, setErrorMsg] = useState('');
 
   const userObj = useSelector((state) => state.user);
+  const loginErrorMsg = useSelector((state) => state.user.loginErrorMsg);
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -42,7 +43,7 @@ function LoginWrapper() {
 
   return (
     <Login
-      errorMsg={errorMsg}
+      loginErrorMsg={loginErrorMsg}
       email={email}
       handleEmailChange={handleEmailChange}
       handleLogin={handleLogin}

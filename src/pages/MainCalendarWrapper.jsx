@@ -10,8 +10,8 @@ const MESSAGES = {
 
 function MainCalendarWrapper() {
   // hooks
-  const [errorMsg, setErrorMsg] = useState(null);
   const userObj = useSelector((state) => state.user);
+  const errorMsg = useSelector((state) => state.events.createEventErrorMsg);
 
   if (!userObj.id) {
     return <Redirect to="../" />;
@@ -19,7 +19,7 @@ function MainCalendarWrapper() {
 
   return (
     <MainCalendar
-      setErrorMsg={setErrorMsg}
+      errorMsg={errorMsg}
     />
   );
 }

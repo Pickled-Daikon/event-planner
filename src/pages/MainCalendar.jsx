@@ -2,6 +2,7 @@ import React from 'react';
 import {
   Grid,
   Icon,
+  Message,
 } from 'semantic-ui-react';
 import Calendar from '../components/Calendar';
 import CreateEvent from '../components/CreateEvent';
@@ -11,14 +12,17 @@ import '../css/style.css';
 
 // eslint-disable-next-line react/prop-types
 function MainCalendar({
+  // eslint-disable-next-line react/prop-types
+  errorMsg,
 }) {
   return (
     <>
       <div className="background">
         <NavBar />
+        {errorMsg ? <Message negative>{errorMsg}</Message> : null}
         <Grid centered>
           <Grid.Column width={4}>
-            <CreateEvent >
+            <CreateEvent>
               <Icon name="add" />
             </CreateEvent>
           </Grid.Column>

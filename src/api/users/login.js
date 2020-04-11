@@ -1,4 +1,4 @@
-import { LOGIN_ERRORS, LOGIN_STATUSES, LOGIN_URL } from './constants';
+import { LOGIN_STATUSES, LOGIN_URL, USER_SERVER_ERRORS, LOGIN_ERROR_MESSAGE } from './constants';
 import store from '../../store';
 import { setLoginStatus, setLoginErrorMsg, setUser } from '../../store/action-creators/user';
 import {decodeToken, setJwtToken} from './jwt';
@@ -24,27 +24,33 @@ export default async function login(email, password) {
     jsonResp = await resp.json();
   } catch (e) {
     store.dispatch(setLoginStatus(LOGIN_STATUSES.FAILED));
-    store.dispatch(setLoginErrorMsg(LOGIN_ERRORS));
+    store.dispatch(setLoginErrorMsg('Could not connect to the server'));
     return;
   }
 
   if (jsonResp.error) {
-    store.dispatch(setLoginStatus(LOGIN_STATUSES.FAILED));
-    store.dispatch(setLoginErrorMsg(LOGIN_ERRORS.UNKNOWN_SERVER_ERROR));
+    if (jsonResp.error === USER_SERVER_ERRORS.USER_NOT_FOUND){
+      store.dispatch(setLoginStatus(LOGIN_STATUSES.FAILED));
+      store.dispatch(setLoginErrorMsg(jsonResp.error));
+    } else {
+      store.dispatch(setLoginStatus(LOGIN_STATUSES.FAILED));
+      store.dispatch(setLoginErrorMsg(LOGIN_ERROR_MESSAGE.SERVER_ERROR));
+    }
+
     return;
   }
 
   const jwtToken = jsonResp.token;
   if (!jwtToken) {
     store.dispatch(setLoginStatus(LOGIN_STATUSES.FAILED));
-    store.dispatch(setLoginErrorMsg(LOGIN_ERRORS.UNKNOWN_SERVER_ERROR));
+    store.dispatch(setLoginErrorMsg(LOGIN_ERROR_MESSAGE.SERVER_ERROR));
     return;
   }
 
   const decodedToken = decodeToken(jwtToken);
   if (!decodedToken) {
     store.dispatch(setLoginStatus(LOGIN_STATUSES.FAILED));
-    store.dispatch(setLoginErrorMsg(LOGIN_ERRORS.UNKNOWN_SERVER_ERROR));
+    store.dispatch(setLoginErrorMsg(LOGIN_ERROR_MESSAGE.SERVER_ERROR));
     return;
   }
 
