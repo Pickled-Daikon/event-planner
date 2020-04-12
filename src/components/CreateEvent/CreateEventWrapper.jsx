@@ -7,6 +7,7 @@ import CreateEvent from './CreateEvent';
 import eventFieldsErrorCheck from './eventFieldsErrorCheck';
 import buildEventObj from './buildEventObj';
 import { setCreatedEvent, setCreateEventErrorMsg } from '../../store/action-creators/events';
+import { setCreateUserErrorMsg } from '../../store/action-creators/user';
 
 const DEFAULT_EVENT_FIELDS = {
   name: '',
@@ -22,12 +23,15 @@ function CreateEventWrapper() {
   const [eventFields, setEventFields] = useState(DEFAULT_EVENT_FIELDS);
   const userObj = useSelector((state) => state.user);
   const dispatch = useDispatch();
+  const errorMsg = useSelector((state) => state.events.createEventErrorMsg);
 
+  useEffect(() => { setCreateEventErrorMsg(null); }, []);
 
   useEffect(() => {
     setEventFields({ ...eventFields, userId: userObj.id });
   }, [userObj, setEventFields]);
   const eventFieldHandler = (event, { name, value }) => {
+    dispatch(setCreateEventErrorMsg(null));
     setEventFields({ ...eventFields, [name]: value });
   };
 
@@ -36,7 +40,6 @@ function CreateEventWrapper() {
     if (fieldError) {
       console.log(fieldError);
       dispatch(setCreateEventErrorMsg(fieldError));
-
       return;
     }
 
@@ -47,6 +50,7 @@ function CreateEventWrapper() {
 
   return (
     <CreateEvent
+      errorMsg={errorMsg}
       eventFields={eventFields}
       eventFieldHandler={eventFieldHandler}
       onSubmit={onSubmit}

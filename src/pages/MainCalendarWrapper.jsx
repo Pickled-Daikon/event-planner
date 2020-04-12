@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import MainCalendar from './MainCalendar';
 
@@ -11,16 +11,15 @@ const MESSAGES = {
 function MainCalendarWrapper() {
   // hooks
   const userObj = useSelector((state) => state.user);
-  const errorMsg = useSelector((state) => state.events.createEventErrorMsg);
 
   if (!userObj.id) {
+
     return <Redirect to="../" />;
   }
 
 
   return (
     <MainCalendar
-      errorMsg={errorMsg}
     />
   );
 }

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   Redirect,
 } from 'react-router-dom';
@@ -10,7 +10,8 @@ import loginRequest from '../api/users/login';
 
 import '../css/style.css';
 import { LOGIN_STATUSES } from '../api/users/constants';
-import {setCreateUserErrorMsg, setLoginErrorMsg} from '../store/action-creators/user';
+import { setCreateUserErrorMsg, setLoginErrorMsg } from '../store/action-creators/user';
+import { setCreateEventErrorMsg } from '../store/action-creators/events';
 
 
 function LoginWrapper() {
@@ -21,10 +22,10 @@ function LoginWrapper() {
   const loginErrorMsg = useSelector((state) => state.user.loginErrorMsg);
   const dispatch = useDispatch();
 
+  useEffect(() => { dispatch(setLoginErrorMsg(null)); },
+    [email, password]);
+
   const handleEmailChange = (e) => {
-    if (loginErrorMsg != null) {
-      dispatch(setLoginErrorMsg(null));
-    }
     setEmail(e.target.value);
   };
 

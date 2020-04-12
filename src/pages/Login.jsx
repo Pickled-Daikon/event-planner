@@ -40,7 +40,7 @@ function Login({
             </Grid.Column>
           </Grid.Row>
           <Grid.Row style={{ marginTop: '20px' }}>
-            <Grid.Column width={3}>
+            <Grid.Column width={4}>
               {
                 loginErrorMsg ? (
                     <Message negative>

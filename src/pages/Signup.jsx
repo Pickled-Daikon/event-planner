@@ -11,6 +11,7 @@ import {
 import '../css/style.css';
 
 function Signup({
+  // eslint-disable-next-line react/prop-types
   createUserErr,
   handleSignup,
   firstName,
@@ -22,8 +23,6 @@ function Signup({
   password,
   passwordChange,
 }) {
-
-
   return (
     <>
       <div className="background">

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 
 import createUserRequest from '../api/users/createUser';
@@ -7,8 +7,9 @@ import {
   CREATE_USER_ERROR_MESSAGES,
 } from '../api/users/constants';
 import Signup from './Signup';
-import {useDispatch, useSelector} from 'react-redux';
-import {setCreateUserErrorMsg} from "../store/action-creators/user";
+import { useDispatch, useSelector } from 'react-redux';
+import { setCreateUserErrorMsg } from '../store/action-creators/user';
+import { setCreateEventErrorMsg } from '../store/action-creators/events';
 
 const ALPHA_WC = /^[a-zA-Z]+$/;
 
@@ -92,8 +93,10 @@ function SignupWrapper() {
   const [password, setPassword] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [errorMsg, setErrorMsg] = useState(null);
+
   const createUserErr = useSelector((state) => state.user.createUserErrorMsg);
   const dispatch = useDispatch();
+
 
   const handleSignup = () => {
     const fieldError = fieldErrorCheck({
@@ -103,7 +106,6 @@ function SignupWrapper() {
       password,
     });
     if (fieldError) {
-      setErrorMsg(fieldError);
       dispatch(setCreateUserErrorMsg(fieldError));
       return;
     }
@@ -116,27 +118,26 @@ function SignupWrapper() {
     });
   };
 
+  useEffect(() => { dispatch(setCreateUserErrorMsg(null)); },
+    [firstName, lastName, email, password, isLoggedIn]);
+
   const firstNameChange = (e) => {
     if (errorMsg != null) {
-      dispatch(setCreateUserErrorMsg(null));
     }
     setFirstName(e.target.value);
   };
   const lastNameChange = (e) => {
     if (errorMsg != null) {
-      dispatch(setCreateUserErrorMsg(null));
     }
     setLastName(e.target.value);
   };
   const emailChange = (e) => {
     if (errorMsg != null) {
-      dispatch(setCreateUserErrorMsg(null));
     }
     setEmail(e.target.value);
   };
   const passwordChange = (e) => {
     if (errorMsg != null) {
-      dispatch(setCreateUserErrorMsg(null));
     }
     setPassword(e.target.value);
   };
