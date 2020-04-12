@@ -1,7 +1,9 @@
-import { LOGIN_STATUSES, LOGIN_URL, USER_SERVER_ERRORS, LOGIN_ERROR_MESSAGE } from './constants';
+import {
+  LOGIN_STATUSES, LOGIN_URL, USER_SERVER_ERRORS, LOGIN_ERROR_MESSAGE,
+} from './constants';
 import store from '../../store';
 import { setLoginStatus, setLoginErrorMsg, setUser } from '../../store/action-creators/user';
-import {decodeToken, setJwtToken} from './jwt';
+import { decodeToken, setJwtToken } from './jwt';
 
 export default async function login(email, password) {
   let jsonResp;
@@ -29,15 +31,24 @@ export default async function login(email, password) {
   }
 
   if (jsonResp.error) {
-    if (jsonResp.error === USER_SERVER_ERRORS.USER_NOT_FOUND){
-      store.dispatch(setLoginStatus(LOGIN_STATUSES.FAILED));
-      store.dispatch(setLoginErrorMsg(jsonResp.error));
-    } else {
-      store.dispatch(setLoginStatus(LOGIN_STATUSES.FAILED));
-      store.dispatch(setLoginErrorMsg(LOGIN_ERROR_MESSAGE.SERVER_ERROR));
+    switch (jsonResp.error) {
+      case USER_SERVER_ERRORS.USER_NOT_FOUND:
+        store.dispatch(setLoginStatus(LOGIN_STATUSES.FAILED));
+        store.dispatch(setLoginErrorMsg(LOGIN_ERROR_MESSAGE.USER_NOT_FOUND));
+        return;
+      case USER_SERVER_ERRORS.INCORRECT_PW:
+        store.dispatch(setLoginStatus(LOGIN_STATUSES.FAILED));
+        store.dispatch(setLoginErrorMsg(LOGIN_ERROR_MESSAGE.INCORRECT_PW));
+        return;
+      case USER_SERVER_ERRORS.CREDENTIALS_MISSING:
+        store.dispatch(setLoginStatus(LOGIN_STATUSES.FAILED));
+        store.dispatch(setLoginErrorMsg(LOGIN_ERROR_MESSAGE.CREDENTIALS_MISSING));
+        return;
+      default:
+        store.dispatch(setLoginStatus(LOGIN_STATUSES.FAILED));
+        store.dispatch(setLoginErrorMsg(LOGIN_ERROR_MESSAGE.SERVER_ERROR));
+        return;
     }
-
-    return;
   }
 
   const jwtToken = jsonResp.token;

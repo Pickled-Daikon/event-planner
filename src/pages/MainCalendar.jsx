@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   Grid,
   Icon,
@@ -8,19 +8,26 @@ import Calendar from '../components/Calendar';
 import CreateEvent from '../components/CreateEvent';
 import NavBar from '../components/NavBar';
 import '../css/style.css';
+import {useDispatch} from "react-redux";
+import {setCreateEventErrorMsg} from "../store/action-creators/events";
 
 
 // eslint-disable-next-line react/prop-types
 function MainCalendar({
   // eslint-disable-next-line react/prop-types
-  errorMsg,
 }) {
+
   return (
     <>
       <div className="background">
         <NavBar />
-        {errorMsg ? <Message negative>{errorMsg}</Message> : null}
         <Grid centered>
+          <Grid.Row>
+            <Grid.Column width={4}>
+            </Grid.Column>
+            <Grid.Column width={10}>
+            </Grid.Column>
+          </Grid.Row>
           <Grid.Column width={4}>
             <CreateEvent>
               <Icon name="add" />

@@ -1,14 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import {
-  Button, Form, Header, TextArea,
+  Button, Form, Grid, Header, Message, TextArea,
 } from 'semantic-ui-react';
 import { DateInput, TimeInput } from 'semantic-ui-calendar-react';
+import { useDispatch } from 'react-redux';
+import { setCreateEventErrorMsg } from '../../store/action-creators/events';
 
-function CreateEvent({ eventFields, eventFieldHandler, onSubmit }) {
+function CreateEvent({
+  // eslint-disable-next-line react/prop-types
+  eventFields, eventFieldHandler, onSubmit, errorMsg,
+}) {
+  const dispatch = useDispatch();
+  useEffect(() => { dispatch(setCreateEventErrorMsg(null)); },
+    []);
   return (
     <>
       <Form>
+        {errorMsg ? <Message negative>{errorMsg}</Message> : null}
         <Header as="h1">Add an Event</Header>
         <TextArea name="name" value={eventFields.name} onChange={eventFieldHandler} rows={1} placeholder="Name of event" />
         <br />
