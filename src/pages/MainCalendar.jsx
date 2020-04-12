@@ -1,5 +1,6 @@
-import React, {useEffect} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
+  Button,
   Grid,
   Icon,
   Message,
@@ -8,14 +9,16 @@ import Calendar from '../components/Calendar';
 import CreateEvent from '../components/CreateEvent';
 import NavBar from '../components/NavBar';
 import '../css/style.css';
-import {useDispatch} from "react-redux";
-import {setCreateEventErrorMsg} from "../store/action-creators/events";
+import SidePanel from '../components/SidePanel';
 
 
 // eslint-disable-next-line react/prop-types
 function MainCalendar({
-  // eslint-disable-next-line react/prop-types
 }) {
+  const [showPanel, setShowPanel] = useState(false);
+  // const [calendarSize, setCalendarSize] = useState(6);
+  const [panelSize, setPanelSize] = useState(14);
+
 
   return (
     <>
@@ -24,27 +27,36 @@ function MainCalendar({
         <Grid centered>
           <Grid.Row>
             <Grid.Column width={4}>
+              <Button onClick={() => setShowPanel(true)}>Create Event +</Button>
             </Grid.Column>
-            <Grid.Column width={10}>
+            <Grid.Column width={11}>
             </Grid.Column>
           </Grid.Row>
-          <Grid.Column width={4}>
-            <CreateEvent>
-              <Icon name="add" />
-            </CreateEvent>
-          </Grid.Column>
-          <Grid.Column
-            width={10}
-            style={
-              {
-                marginTop: '50px',
-                marginRight: '10px',
-                marginLeft: '10px',
-              }
-            }
-          >
-            <Calendar />
-          </Grid.Column>
+          <Grid.Row>
+            <Grid.Column width={15}>
+              <SidePanel
+                  showPanel={showPanel}
+              />
+            </Grid.Column>
+          </Grid.Row>
+          {/*<Grid.Column width={panelSize}>*/}
+          {/*  <Button onClick={() => setShowPanel(true)}>Create Event +</Button>*/}
+          {/*  <SidePanel*/}
+          {/*    showPanel={showPanel}*/}
+          {/*  />*/}
+          {/*</Grid.Column>*/}
+          {/* <Grid.Column */}
+          {/*  width={calendarSize} */}
+          {/*  style={ */}
+          {/*    { */}
+          {/*      marginTop: '50px', */}
+          {/*      marginRight: '10px', */}
+          {/*      marginLeft: '10px', */}
+          {/*    } */}
+          {/*  } */}
+          {/* > */}
+          {/*  <Calendar /> */}
+          {/* </Grid.Column> */}
         </Grid>
       </div>
     </>

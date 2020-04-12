@@ -7,7 +7,6 @@ import CreateEvent from './CreateEvent';
 import eventFieldsErrorCheck from './eventFieldsErrorCheck';
 import buildEventObj from './buildEventObj';
 import { setCreatedEvent, setCreateEventErrorMsg } from '../../store/action-creators/events';
-import { setCreateUserErrorMsg } from '../../store/action-creators/user';
 
 const DEFAULT_EVENT_FIELDS = {
   name: '',
