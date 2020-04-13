@@ -11,7 +11,7 @@ import logout from '../api/users/logout';
 function NavBar() {
   return (
     <>
-      <Menu className="navBarStyle" borderless color="black">
+      <Menu className="navBarStyle" secondary>
         <Menu.Item>
           <Icon name="calendar" size="big" />
         </Menu.Item>
@@ -22,7 +22,7 @@ function NavBar() {
         </Menu.Item>
         <Menu.Menu position="right" className="logoutButton">
           <Menu.Item onClick={logout}>
-              <Header as="h3">Logout</Header>
+            <Header as="h3">Logout</Header>
           </Menu.Item>
         </Menu.Menu>
       </Menu>

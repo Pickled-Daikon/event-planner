@@ -9,7 +9,6 @@ import {
 import Signup from './Signup';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCreateUserErrorMsg } from '../store/action-creators/user';
-import { setCreateEventErrorMsg } from '../store/action-creators/events';
 
 const ALPHA_WC = /^[a-zA-Z]+$/;
 

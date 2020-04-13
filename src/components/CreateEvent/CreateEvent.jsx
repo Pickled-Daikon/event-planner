@@ -6,6 +6,8 @@ import {
 import { DateInput, TimeInput } from 'semantic-ui-calendar-react';
 import { useDispatch } from 'react-redux';
 import { setCreateEventErrorMsg } from '../../store/action-creators/events';
+import '../../css/style.css';
+
 
 function CreateEvent({
   // eslint-disable-next-line react/prop-types
@@ -16,6 +18,7 @@ function CreateEvent({
     []);
   return (
     <>
+      <div className="panelStyle">
       <Form>
         {errorMsg ? <Message negative>{errorMsg}</Message> : null}
         <Header as="h1">Add an Event</Header>
@@ -60,6 +63,7 @@ function CreateEvent({
         {' '}
         Add event
       </Button>
+      </div>
     </>
   );
 }

@@ -10,8 +10,7 @@ import loginRequest from '../api/users/login';
 
 import '../css/style.css';
 import { LOGIN_STATUSES } from '../api/users/constants';
-import { setCreateUserErrorMsg, setLoginErrorMsg } from '../store/action-creators/user';
-import { setCreateEventErrorMsg } from '../store/action-creators/events';
+import { setLoginErrorMsg } from '../store/action-creators/user';
 
 
 function LoginWrapper() {
