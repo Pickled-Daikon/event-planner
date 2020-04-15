@@ -1,9 +1,13 @@
-import React, { useState } from 'react';
-import { Item, Card } from 'semantic-ui-react';
+import React from 'react';
+import { Card } from 'semantic-ui-react';
+import DownloadEventsByDay from "./DownloadEventsByDay";
+import PropTypes from "prop-types";
+import CreateEvent from "./CreateEvent/CreateEvent";
+import MainCalendar from "../pages/MainCalendar";
 
 const defaultDate = new Date().getDate().toString();
 
-function GetEvents() {
+function GetEvents( {handleDownload} ) {
   const events = [
     {
       header: 'This is a header',
@@ -16,9 +20,13 @@ function GetEvents() {
     <>
       <div className="panelStyle">
         <Card.Group items={events} />
+        <br/>
+        <DownloadEventsByDay floated="right" onClick={handleDownload}/>
       </div>
     </>
   );
 }
-
+GetEvents.propTypes = {
+  handleDownload: PropTypes.func.isRequired,
+};
 export default GetEvents;

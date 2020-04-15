@@ -9,7 +9,7 @@ function Calendar() {
   const [date, setDate] = useState(defaultDate);
   const handleGetDate = () =>
   {
-
+    console.log(date);
   };
   return (
     <>
@@ -20,8 +20,8 @@ function Calendar() {
         value={date}
         iconPosition="left"
         onChange={(event, { value }) => setDate(value)}
-        onSelect={handleGetDate}
       />
+      <Button onClick={handleGetDate}></Button>
     </>
   );
 }
