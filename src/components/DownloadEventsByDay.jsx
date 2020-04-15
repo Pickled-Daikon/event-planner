@@ -1,10 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Button } from 'semantic-ui-react';
 
 
-function DownloadEventsByDay() {
+function DownloadEventsByDay({ events }) {
   const handleDownload = () => {
-    console.log('downloading events by day');
+    console.log({events});
   };
 
   return (
@@ -14,4 +15,7 @@ function DownloadEventsByDay() {
   );
 }
 
+DownloadEventsByDay.propTypes = {
+  events: PropTypes.func.isRequired,
+};
 export default DownloadEventsByDay;
