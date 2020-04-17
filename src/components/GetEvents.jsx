@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
-import { Card, Header } from 'semantic-ui-react';
-import PropTypes from 'prop-types';
+import { Button, Card, Header } from 'semantic-ui-react';
 import DownloadEventsByDay from './DownloadEventsByDay';
 
 const defaultDate = new Date().getDate().toString();
 
 function GetEvents() {
   // const [date, setDate] = useState(thisdate);
+
+  const handleDownloadIndividualEvent = () => {
+    console.log('Downloading [insert date object here] ');
+  };
 
   const events = {
     name: 'Take my dog to work day',
@@ -48,6 +51,7 @@ function GetEvents() {
         <DownloadEventsByDay
           events={events}
         />
+        <Button onClick={handleDownloadIndividualEvent}>Get event by day</Button>
       </div>
     </>
   );
