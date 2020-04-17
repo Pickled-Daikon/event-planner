@@ -10,8 +10,8 @@ export const CREATE_EVENT_ERRORS = {
 
 export const CREATE_EVENT_ERROR_MESSAGES = {
   SERVER_ERROR: 'Undefined server Error.',
-  BAD_EVENT_GIVEN: 'New event object is either missing, ' +
-      'missing props, or props have incorrect type in request body.',
+  BAD_EVENT_GIVEN: 'New event object is either missing, '
+      + 'missing props, or props have incorrect type in request body.',
 };
 
 export const CREATE_EVENT_STATUSES = {
@@ -21,3 +21,5 @@ export const CREATE_EVENT_STATUSES = {
 };
 
 export const CREATE_EVENT_URL = `${API_ROOT_URL}/events/create`;
+
+export const GET_EVENTS_URL = `${API_ROOT_URL}/events/get-by-user`;

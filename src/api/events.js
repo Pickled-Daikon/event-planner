@@ -23,7 +23,8 @@ const ERRORS = {
  *   endDateTime: String
  * }]>}
  */
-export async function getAllEvents() {
+
+/* export async function getAllEvents() {
   let jsonResp;
   try {
     const resp = await fetch(GET_EVENTS_URL);
@@ -32,7 +33,7 @@ export async function getAllEvents() {
   } catch (e) {
     throw new Error('Failed to fetch events');
   }
-}
+} */
 
 /**
  *

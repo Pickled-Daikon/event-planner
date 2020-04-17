@@ -12,6 +12,7 @@ import CreateEventWrapper from '../components/CreateEvent/CreateEventWrapper';
 // eslint-disable-next-line import/order
 import PropTypes from 'prop-types';
 import GetEvents from '../components/GetEvents';
+import getAllEvents from '../api/events/getAllEvents';
 
 
 // eslint-disable-next-line react/prop-types
@@ -47,6 +48,8 @@ function MainCalendar({
     setButtonSize(1);
   };
 
+  getAllEvents();
+
   return (
     <>
       <NavBar />
@@ -61,8 +64,7 @@ function MainCalendar({
           visible={showPanelCreate}
           width="wide"
         >
-          <Button compact basic icon="window close" onClick={handleClosePanel} floated="right" size="small">
-          </Button>
+          <Button compact basic icon="window close" onClick={handleClosePanel} floated="right" size="small" />
           <CreateEventWrapper />
         </Sidebar>
         <Sidebar
@@ -73,14 +75,13 @@ function MainCalendar({
           vertical
           visible={showPanelGetEvents}
         >
-          <Button compact basic icon="window close" onClick={handleClosePanel} floated="right" size="small">
-          </Button>
+          <Button compact basic icon="window close" onClick={handleClosePanel} floated="right" size="small" />
           <GetEvents />
         </Sidebar>
 
         <Sidebar.Pusher>
           <div className="background">
-            <Grid >
+            <Grid>
               <Grid.Row>
                 <Grid.Column width={buttonSize}>
                   <Button onClick={handleShowPanel}>createevents</Button>
@@ -91,7 +92,7 @@ function MainCalendar({
               </Grid.Row>
               <Grid.Row>
                 <Grid.Column width={calendarSize}>
-                  <Calendar/>
+                  <Calendar />
                 </Grid.Column>
               </Grid.Row>
             </Grid>
