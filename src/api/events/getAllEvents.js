@@ -3,6 +3,7 @@ import store from '../../store';
 import { GET_EVENTS_URL } from './constants';
 import { setAllEvents } from '../../store/action-creators/events';
 import { parse } from 'dotenv';
+import getDateString from "./getDateString";
 
 /**
  *
@@ -30,13 +31,16 @@ async function getAllEvents() {
     jsonResp = await resp.json();
     store.dispatch(setAllEvents(jsonResp.events));
   } catch (e) {
-
+    return;
   }
 
+  if (!jsonResp.events) {
+    return;
+  }
   //get start
   jsonResp.events.forEach((event) => {
     const date = new Date(event.startDateTime);
-    const dateWithoutTime = date.toString().split(' ').slice(0, 4).join(' ');
+    const dateWithoutTime = getDateString(date);
 
     if(events[dateWithoutTime]) {
       events[dateWithoutTime].push(event);
