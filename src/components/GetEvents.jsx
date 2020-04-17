@@ -15,12 +15,17 @@ function GetEvents() {
   const events = useSelector((state) => state.events.allEvents);
   const selectedDate = useSelector((state) => state.calendar.selectedDate);
 
-  let currentEvents = events[selectedDate];
-  if (!currentEvents) {
-    currentEvents = [];
-  }
+  let currentEvents;
 
-  console.log(currentEvents);
+  if (!events) {
+    currentEvents = [];
+  } else if (!selectedDate) {
+    currentEvents = [];
+  } else if (!events[selectedDate]) {
+    currentEvents = [];
+  } else {
+    currentEvents = events[selectedDate];
+  }
 
 
 

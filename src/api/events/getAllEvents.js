@@ -11,9 +11,14 @@ import getDateString from "./getDateString";
  */
 async function getAllEvents() {
   const jwtToken = getJwtToken();
-  const { id } = store.getState().user;
+  const user = store.getState().user;
   let jsonResp = null;
 
+  if (!user) {
+    return
+  }
+
+  const id = user.id;
   let events = {};
   // no state for sttsu
 
