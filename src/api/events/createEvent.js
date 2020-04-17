@@ -3,6 +3,7 @@ import { getJwtToken } from '../users/jwt';
 import store from '../../store';
 import { setCreatedEvent, setCreateEventErrorMsg, setCreateEventStatus } from '../../store/action-creators/events';
 
+
 /**
  *
  * @param eventObj {{startDateTime: *, name: *, description: *, location: *, endDateTime: *}}
@@ -12,7 +13,6 @@ async function createEvent(eventObj) {
   let jsonResp;
 
   store.dispatch(setCreateEventStatus(CREATE_EVENT_STATUSES.PENDING));
-
   try {
     const resp = await fetch(CREATE_EVENT_URL, {
       method: 'POST',
