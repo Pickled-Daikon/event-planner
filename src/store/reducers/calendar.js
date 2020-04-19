@@ -1,4 +1,4 @@
-import {SET_SELECTED_DATE} from "../action-creators/calendar";
+import { SET_SELECTED_DATE } from '../action-creators/calendar';
 
 const defaultState = {
   selectedDate: null,

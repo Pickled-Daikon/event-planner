@@ -1,12 +1,27 @@
 import React from 'react';
-import { Card } from "semantic-ui-react";
+import { Card, Button } from 'semantic-ui-react';
+import downloadICS from '../api/downloadICS';
 
-export default function EventCard({event}) {
+export default function EventCard({ event }) {
   const startDate = new Date(event.startDateTime);
   const endDate = new Date(event.endDateTime);
 
   const startTime = startDate.toLocaleTimeString();
   const endTime = endDate.toLocaleTimeString();
+
+
+  function handleDownload() {
+    const {
+      name,
+      description,
+      location,
+      date,
+      startTime,
+      endTime,
+    } = event;
+
+    // downloadICS(event);
+  }
 
   return (
     <Card>
@@ -31,6 +46,7 @@ export default function EventCard({event}) {
         {' '}
         {endTime}
       </Card.Content>
+      <Button onClick={handleDownload}>Download Event</Button>
     </Card>
   );
 }

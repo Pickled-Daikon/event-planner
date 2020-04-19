@@ -13,12 +13,14 @@ import CreateEventWrapper from '../components/CreateEvent/CreateEventWrapper';
 import PropTypes from 'prop-types';
 import GetEvents from '../components/GetEvents';
 import getAllEvents from '../api/events/getAllEvents';
+import {useDispatch, useSelector} from "react-redux";
+import {setGetEventsPanel} from "../store/action-types/panel";
 
 
 // eslint-disable-next-line react/prop-types
 function MainCalendar({
   // handleClosePanel,
-  // handleShowPanel,
+  //   setShowPanelGetEvents,
   // showPanel,
   // calendarSize,
 }) {
@@ -26,9 +28,11 @@ function MainCalendar({
   const [showPanelGetEvents, setShowPanelGetEvents] = useState(false);
   const [calendarSize, setCalendarSize] = useState(15);
   const [buttonSize, setButtonSize] = useState(3);
+  const getPanelStatus = useSelector((state) => state.panel.getEventsPanel);
+  const dispatch = useDispatch();
 
   const handleGetEventsPanel = () => {
-    setShowPanelGetEvents(true);
+    setShowPanelGetEvents(getPanelStatus);
     setShowPanelCreate(false);
     setCalendarSize(11);
     setButtonSize(1);
@@ -36,6 +40,7 @@ function MainCalendar({
 
   const handleClosePanel = () => {
     setShowPanelCreate(false);
+    dispatch(setGetEventsPanel(false));
     setShowPanelGetEvents(false);
     setCalendarSize(15);
     setButtonSize(3);
@@ -43,6 +48,7 @@ function MainCalendar({
 
   const handleShowPanel = () => {
     setShowPanelCreate(true);
+    dispatch(setGetEventsPanel(false));
     setShowPanelGetEvents(false);
     setCalendarSize(11);
     setButtonSize(1);
@@ -73,7 +79,7 @@ function MainCalendar({
           icon="labeled"
           width="wide"
           vertical
-          visible={showPanelGetEvents}
+          visible={getPanelStatus}
         >
           <Button compact basic icon="window close" onClick={handleClosePanel} floated="right" size="small" />
           <GetEvents />
@@ -85,7 +91,6 @@ function MainCalendar({
               <Grid.Row>
                 <Grid.Column width={buttonSize}>
                   <Button onClick={handleShowPanel}>createevents</Button>
-                  <Button onClick={handleGetEventsPanel}>getevents</Button>
                 </Grid.Column>
                 <Grid.Column width={11}>
                 </Grid.Column>

@@ -54,6 +54,7 @@ function createICS(eventObject) {
     result = value;
   });
   return result;
+
 }
 
 export default createICS;
