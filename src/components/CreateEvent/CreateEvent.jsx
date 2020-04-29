@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import {
-  Button, Form, Grid, Header, Message, TextArea,
+  Button, Form, Select, Header, Message, TextArea,
 } from 'semantic-ui-react';
 import { DateInput, TimeInput } from 'semantic-ui-calendar-react';
 import { useDispatch } from 'react-redux';
@@ -16,6 +16,16 @@ function CreateEvent({
   const dispatch = useDispatch();
   useEffect(() => { dispatch(setCreateEventErrorMsg(null)); },
     []);
+
+  const recurringOptions = [
+    { value: 'None', text: 'None'},
+    { value: 'Daily', text: 'Every Day' },
+    { value: 'Weekly', text: 'Every Week' },
+    { value: 'Biweekly', text: 'Every Two Weeks' },
+    { value: 'Monthly', text: 'Every Month' },
+    { value: 'Yearly', text: 'Every Year' },
+  ];
+
   return (
     <>
       <div className="panelStyle">
@@ -57,6 +67,7 @@ function CreateEvent({
             iconPosition="left"
             onChange={eventFieldHandler}
           />
+          <Select placeholder="Repeat every..." fluid selection options={recurringOptions} />
         </Form>
         <br />
         <Button onClick={onSubmit}>
