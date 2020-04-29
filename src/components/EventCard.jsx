@@ -11,16 +11,7 @@ export default function EventCard({ event }) {
 
 
   function handleDownload() {
-    const {
-      name,
-      description,
-      location,
-      date,
-      startTime,
-      endTime,
-    } = event;
-
-    // downloadICS(event);
+    downloadICS(event);
   }
 
   return (
