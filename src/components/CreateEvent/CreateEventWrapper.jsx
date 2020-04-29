@@ -5,7 +5,8 @@ import createEventRequest from '../../api/events/createEvent';
 import CreateEvent from './CreateEvent';
 import eventFieldsErrorCheck from './eventFieldsErrorCheck';
 import buildEventObj from './buildEventObj';
-import { setCreatedEvent, setCreateEventErrorMsg } from '../../store/action-creators/events';
+import { setCreatedEvent, setCreateEventErrorMsg, setIsRecurring } from '../../store/action-creators/events';
+import buildRecurringEvent from './buildRecurringEvent';
 
 const DEFAULT_EVENT_FIELDS = {
   name: '',
@@ -15,6 +16,7 @@ const DEFAULT_EVENT_FIELDS = {
   startTime: '',
   endTime: '',
   userId: '',
+  isRecurring: '',
 };
 
 function CreateEventWrapper() {
@@ -22,6 +24,7 @@ function CreateEventWrapper() {
   const userObj = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const errorMsg = useSelector((state) => state.events.createEventErrorMsg);
+  const recurring = useSelector((state) => state.events.isRecurring);
 
   useEffect(() => { setCreateEventErrorMsg(null); }, []);
 
@@ -31,6 +34,12 @@ function CreateEventWrapper() {
   const eventFieldHandler = (event, { name, value }) => {
     dispatch(setCreateEventErrorMsg(null));
     setEventFields({ ...eventFields, [name]: value });
+    if (eventFields.isRecurring === 'none') {
+      dispatch(setIsRecurring(false));
+      console.log(eventFields.isRecurring);
+    } else {
+      dispatch(setIsRecurring(true));
+    }
   };
 
   const onSubmit = () => {
@@ -40,7 +49,9 @@ function CreateEventWrapper() {
       dispatch(setCreateEventErrorMsg(fieldError));
       return;
     }
-
+    if (recurring) {
+      buildRecurringEvent(eventFields);
+    }
     const eventObj = buildEventObj(eventFields);
 
     createEventRequest(eventObj);

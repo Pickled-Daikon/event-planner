@@ -18,12 +18,12 @@ function CreateEvent({
     []);
 
   const recurringOptions = [
-    { value: 'None', text: 'None'},
-    { value: 'Daily', text: 'Every Day' },
-    { value: 'Weekly', text: 'Every Week' },
-    { value: 'Biweekly', text: 'Every Two Weeks' },
-    { value: 'Monthly', text: 'Every Month' },
-    { value: 'Yearly', text: 'Every Year' },
+    { value: 'none', text: 'None'},
+    { value: 'daily', text: 'Every Day' },
+    { value: 'weekly', text: 'Every Week' },
+    { value: 'biweekly', text: 'Every Two Weeks' },
+    { value: 'monthly', text: 'Every Month' },
+    { value: 'yearly', text: 'Every Year' },
   ];
 
   return (
@@ -67,7 +67,7 @@ function CreateEvent({
             iconPosition="left"
             onChange={eventFieldHandler}
           />
-          <Select placeholder="Repeat every..." fluid selection options={recurringOptions} />
+          <Select placeholder="Repeat every..." name="isRecurring" fluid selection options={recurringOptions} onChange={eventFieldHandler}/>
         </Form>
         <br />
         <Button onClick={onSubmit}>
@@ -87,6 +87,7 @@ CreateEvent.propTypes = {
     date: PropTypes.string,
     startTime: PropTypes.string,
     endTime: PropTypes.string,
+    isRecurring: PropTypes.string,
   }).isRequired,
   eventFieldHandler: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,

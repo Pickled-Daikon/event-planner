@@ -3,6 +3,7 @@ import {
   SET_CREATE_EVENT_ERROR_MSG,
   SET_CREATED_EVENT,
   SET_ALL_EVENTS,
+  SET_IS_RECURRING,
 } from '../action-types/events';
 
 
@@ -31,5 +32,12 @@ export function setAllEvents(events) {
   return {
     type: SET_ALL_EVENTS,
     payload: events,
+  };
+}
+
+export function setIsRecurring(status) {
+  return {
+    type: SET_IS_RECURRING,
+    payload: status,
   };
 }
