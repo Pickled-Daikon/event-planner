@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import createICS from '../../api/createics';
 import createEventRequest from '../../api/events/createEvent';
 import CreateEvent from './CreateEvent';
 import eventFieldsErrorCheck from './eventFieldsErrorCheck';
@@ -57,16 +56,6 @@ function CreateEventWrapper() {
   );
 }
 
-
-// function downloadIcsFile(eventObj) {
-//   const fileContents = createICS(eventObj);
-//   const element = document.createElement('a');
-//   const file = new Blob([fileContents], { type: 'text/plain' });
-//   element.href = URL.createObjectURL(file);
-//   element.download = `${eventObj.name}.ics`;
-//   document.body.appendChild(element); // Required for this to work in FireFox
-//   element.click();
-// }
 
 CreateEventWrapper.propTypes = {};
 

@@ -1,21 +1,19 @@
-import React, { useState } from 'react';
-import { Button, Card, Header } from 'semantic-ui-react';
+import React from 'react';
+import { Button, Header } from 'semantic-ui-react';
+import { useSelector } from 'react-redux';
 import DownloadEventsByDay from './DownloadEventsByDay';
-import {useSelector} from "react-redux";
-import EventCard from "./EventCard";
+import EventCard from './EventCard';
+import downloadMultiIcsEvent from "../api/downloadMultiIcsEvent";
 
 
 function GetEvents() {
   // const [date, setDate] = useState(thisdate);
 
-  const handleDownloadIndividualEvent = () => {
-    console.log('Downloading [insert date object here] ');
-  };
 
   const events = useSelector((state) => state.events.allEvents);
   const selectedDate = useSelector((state) => state.calendar.selectedDate);
 
-  let currentEvents;
+  let currentEvents = [];
 
   if (!events) {
     currentEvents = [];
@@ -27,23 +25,28 @@ function GetEvents() {
     currentEvents = events[selectedDate];
   }
 
+  const handleDownloadEventsByDay = () => {
+    if (events) {
+      downloadMultiIcsEvent(currentEvents, selectedDate);
+    }
+  };
 
 
   return (
     <>
       <div className="panelStyle">
         <Header>{selectedDate}</Header>
-        {currentEvents.map((event) => {
-          return <EventCard
+        {currentEvents.map((event) => (
+          <EventCard
             event={event}
             key={event.name}
           />
-        })}
+        ))}
         <br />
         <DownloadEventsByDay
           events={events}
         />
-        <Button onClick={handleDownloadIndividualEvent}>Get event by day</Button>
+        <Button onClick={handleDownloadEventsByDay}>Get events by day</Button>
       </div>
     </>
   );
