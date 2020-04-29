@@ -1,5 +1,3 @@
-import * as ics from 'ics';
-
 
 /**
  *
@@ -10,7 +8,7 @@ import * as ics from 'ics';
  *   endDateTime: String
  * }} eventObject
  */
-function createICS(eventObject) {
+function createIcsObj(eventObject) {
 
   const {
     name, description, location, startDateTime, endDateTime,
@@ -18,10 +16,8 @@ function createICS(eventObject) {
 
   const start = new Date(startDateTime);
   const end = new Date(endDateTime);
-  let result = '';
 
-
-  const icsFile = {
+  const icsObject = {
     // eslint-disable-next-line max-len
     start: [start.getFullYear(), (start.getMonth() + 1), start.getDate(), start.getHours(), start.getMinutes()],
     end: [end.getFullYear(), (end.getMonth() + 1), end.getDate(), end.getHours(), end.getMinutes()],
@@ -29,14 +25,8 @@ function createICS(eventObject) {
     description,
     location,
   };
-  ics.createEvent(icsFile, (error, value) => {
-    if (error) {
-      // eslint-disable-next-line no-console
-      console.log(error);
-    }
-    result = value;
-  });
-  return result;
+
+  return icsObject;
 }
 
-export default createICS;
+export default createIcsObj;

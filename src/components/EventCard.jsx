@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, Button } from 'semantic-ui-react';
-import downloadICS from '../api/downloadICS';
+import downloadSingleIcsEvent from '../api/downloadSingleIcsEvent';
 
 export default function EventCard({ event }) {
   const startDate = new Date(event.startDateTime);
@@ -11,7 +11,7 @@ export default function EventCard({ event }) {
 
 
   function handleDownload() {
-    downloadICS(event);
+    downloadSingleIcsEvent(event);
   }
 
   return (
