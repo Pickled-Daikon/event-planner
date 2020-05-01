@@ -23,7 +23,6 @@ export default function buildRecurringEvent(eventFields) {
 
   switch (eventFields.isRecurring) {
     case 'daily':
-        
       break;
     case 'weekly':
       break;
