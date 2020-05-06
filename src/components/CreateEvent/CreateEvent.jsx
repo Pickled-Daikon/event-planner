@@ -5,26 +5,27 @@ import {
 } from 'semantic-ui-react';
 import { DateInput, TimeInput } from 'semantic-ui-calendar-react';
 import { useDispatch } from 'react-redux';
+import CreateEventWrapper from './CreateEventWrapper';
 import { setCreateEventErrorMsg } from '../../store/action-creators/events';
 import '../../css/style.css';
 
 
 function CreateEvent({
   // eslint-disable-next-line react/prop-types
-  eventFields, eventFieldHandler, onSubmit, errorMsg,
+  eventFields, eventFieldHandler, onSubmit, errorMsg, recurringOptions,
 }) {
   const dispatch = useDispatch();
   useEffect(() => { dispatch(setCreateEventErrorMsg(null)); },
     []);
 
-  const recurringOptions = [
-    { value: 'none', text: 'None'},
+  /* const recurringOptions = [
+    { value: 'none', text: 'None' },
     { value: 'daily', text: 'Every Day' },
     { value: 'weekly', text: 'Every Week' },
     { value: 'biweekly', text: 'Every Two Weeks' },
     { value: 'monthly', text: 'Every Month' },
     { value: 'yearly', text: 'Every Year' },
-  ];
+  ]; */
 
   return (
     <>
@@ -67,7 +68,15 @@ function CreateEvent({
             iconPosition="left"
             onChange={eventFieldHandler}
           />
-          <Select placeholder="Repeat every..." name="isRecurring" fluid selection options={recurringOptions} onChange={eventFieldHandler}/>
+          <Select
+            placeholder="Repeat every..."
+            name="recurrenceType"
+            fluid
+            selection
+            options={recurringOptions}
+            onChange={eventFieldHandler}
+            value={eventFields.recurrenceType}
+          />
         </Form>
         <br />
         <Button onClick={onSubmit}>
@@ -87,7 +96,7 @@ CreateEvent.propTypes = {
     date: PropTypes.string,
     startTime: PropTypes.string,
     endTime: PropTypes.string,
-    isRecurring: PropTypes.string,
+    recurrenceType: PropTypes.array,
   }).isRequired,
   eventFieldHandler: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,

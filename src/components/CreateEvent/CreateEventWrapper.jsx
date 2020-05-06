@@ -16,8 +16,18 @@ const DEFAULT_EVENT_FIELDS = {
   startTime: '',
   endTime: '',
   userId: '',
-  isRecurring: '',
+  recurrenceType: '',
 };
+
+const recurringOptions = [
+  { value: 'none', text: 'None' },
+  { value: 'daily', text: 'Every Day' },
+  { value: 'weekly', text: 'Every Week' },
+  { value: 'biweekly', text: 'Every Two Weeks' },
+  { value: 'monthly', text: 'Every Month' },
+  { value: 'yearly', text: 'Every Year' },
+];
+
 
 function CreateEventWrapper() {
   const [eventFields, setEventFields] = useState(DEFAULT_EVENT_FIELDS);
@@ -34,12 +44,6 @@ function CreateEventWrapper() {
   const eventFieldHandler = (event, { name, value }) => {
     dispatch(setCreateEventErrorMsg(null));
     setEventFields({ ...eventFields, [name]: value });
-    if (eventFields.isRecurring === 'none') {
-      dispatch(setIsRecurring(false));
-      console.log(eventFields.isRecurring);
-    } else {
-      dispatch(setIsRecurring(true));
-    }
   };
 
   const onSubmit = () => {
@@ -49,9 +53,7 @@ function CreateEventWrapper() {
       dispatch(setCreateEventErrorMsg(fieldError));
       return;
     }
-    if (recurring) {
-      buildRecurringEvent(eventFields);
-    }
+
     const eventObj = buildEventObj(eventFields);
 
     createEventRequest(eventObj);
@@ -63,6 +65,7 @@ function CreateEventWrapper() {
       eventFields={eventFields}
       eventFieldHandler={eventFieldHandler}
       onSubmit={onSubmit}
+      recurringOptions={recurringOptions}
     />
   );
 }

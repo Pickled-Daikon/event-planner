@@ -28,5 +28,6 @@ export default function buildEventObj(eventFields) {
     location: eventFields.location,
     startDateTime: startDateStr,
     endDateTime: endDateStr,
+    recurrenceType: eventFields.recurrenceType,
   };
 }

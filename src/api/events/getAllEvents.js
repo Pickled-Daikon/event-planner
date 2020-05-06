@@ -57,7 +57,7 @@ async function getAllEvents() {
   store.dispatch(setAllEvents(events));
   //make it an object/
   //call get day
-  //add to object
+  // add to object
 }
 
 export default getAllEvents;
