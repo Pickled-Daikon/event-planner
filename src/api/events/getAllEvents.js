@@ -2,9 +2,7 @@ import { getJwtToken } from '../users/jwt';
 import store from '../../store';
 import { GET_EVENTS_URL } from './constants';
 import { setAllEvents } from '../../store/action-creators/events';
-import { parse } from 'dotenv';
 import getDateString from "./getDateString";
-
 /**
  *
  * @param eventObj {{startDateTime: *, name: *, description: *, location: *, endDateTime: *}}
@@ -19,8 +17,9 @@ async function getAllEvents() {
   }
 
   const id = user.id;
-  let events = {};
-  // no state for sttsu
+  let events = {
+    daily: [],
+  };
 
   try {
     const resp = await fetch(GET_EVENTS_URL, {
@@ -42,21 +41,24 @@ async function getAllEvents() {
   if (!jsonResp.events) {
     return;
   }
-  //get start
+  // get start
   jsonResp.events.forEach((event) => {
     const date = new Date(event.startDateTime);
     const dateWithoutTime = getDateString(date);
+    const recurrenceType = event.recurrenceType;
 
-    if(events[dateWithoutTime]) {
+    if (recurrenceType === 'daily') {
+      events.daily.push(event);
+    } else if (events[dateWithoutTime]) {
       events[dateWithoutTime].push(event);
     } else {
       events[dateWithoutTime] = [event];
     }
-  })
+  });
 
   store.dispatch(setAllEvents(events));
-  //make it an object/
-  //call get day
+  // make it an object/
+  // call get day
   // add to object
 }
 

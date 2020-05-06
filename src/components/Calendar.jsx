@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import getDateString from '../api/events/getDateString';
 import { setSelectedDate } from '../store/action-types/calendar';
 import {setGetEventsPanel} from "../store/action-types/panel";
+import getAllEvents from "../api/events/getAllEvents";
 import MainCalendar from '../pages/MainCalendar';
 
 
@@ -17,6 +18,7 @@ function Calendar() {
 
 
   const dateHandler = (event, { value }) => {
+    console.log(value);
     const [day, month, year] = value.split('-');
     const dateObj = new Date();
     dateObj.setFullYear(year);

@@ -5,7 +5,6 @@ import {
 } from 'semantic-ui-react';
 import { DateInput, TimeInput } from 'semantic-ui-calendar-react';
 import { useDispatch } from 'react-redux';
-import CreateEventWrapper from './CreateEventWrapper';
 import { setCreateEventErrorMsg } from '../../store/action-creators/events';
 import '../../css/style.css';
 
@@ -17,15 +16,6 @@ function CreateEvent({
   const dispatch = useDispatch();
   useEffect(() => { dispatch(setCreateEventErrorMsg(null)); },
     []);
-
-  /* const recurringOptions = [
-    { value: 'none', text: 'None' },
-    { value: 'daily', text: 'Every Day' },
-    { value: 'weekly', text: 'Every Week' },
-    { value: 'biweekly', text: 'Every Two Weeks' },
-    { value: 'monthly', text: 'Every Month' },
-    { value: 'yearly', text: 'Every Year' },
-  ]; */
 
   return (
     <>
